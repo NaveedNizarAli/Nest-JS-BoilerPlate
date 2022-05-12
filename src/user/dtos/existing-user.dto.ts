@@ -1,4 +1,4 @@
 export class ExistingUserDTO {
-  email: string;
+  username: string;
   password: string;
 }
