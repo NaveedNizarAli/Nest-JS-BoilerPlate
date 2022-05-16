@@ -18,6 +18,10 @@ export class User {
   openid: number;
   @Prop({})
   scope: string;
+  @Prop({})
+  access_token : string;
+  @Prop({})
+  refresh_token: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -21,8 +21,8 @@ export class UserService {
     };
   }
 
-  async findByEmail(email: string): Promise<UserDocument | null> {
-    return this.userModel.findOne({ email }).exec();
+  async findByUsername(username: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ username }).exec();
   }
 
   async findById(id: string): Promise<UserDetails | null> {
@@ -48,7 +48,7 @@ export class UserService {
     return newUser.save();
   }
 
-  async update(id: string, user: UpdateUserEnterPass): Promise<UserDocument> {
+  async update(id: string, user: Object): Promise<UserDocument> {
       return await this.userModel.findByIdAndUpdate(id, user, {new: true})
   }
 }
