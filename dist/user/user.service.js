@@ -27,8 +27,8 @@ let UserService = class UserService {
             date: user.date,
         };
     }
-    async findByUsername(username) {
-        return this.userModel.findOne({ username }).exec();
+    async findByUsername(usernameHash) {
+        return this.userModel.findOne({ usernameHash }).exec();
     }
     async findById(id) {
         const user = await this.userModel.findById(id).exec();
