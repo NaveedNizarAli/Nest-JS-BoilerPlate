@@ -44,8 +44,16 @@ export class UserController {
       if(response) {
         if(!response.data.errcode) {
           this.userService.create(response.data.username, userData.password, userData.date)
+          return {
+            success : true,
+            message : 'user successfully signed up',
+            data    : response.data
+          };
         }
-        return response.data
+        else
+        {
+          return {success: false, error: response.data.errmsg, ...response.data}
+        }
       }
     }));
     return data;
@@ -88,12 +96,16 @@ export class UserController {
                               access_token  : response.data.token_type + ' ' +response.data.access_token,
                           };
             return this.userService.update(res._id, user).then((res)=>{
-                return res;
+                return {
+                  success : true,
+                  message : 'user successfully logged in',
+                  data    : res
+                };
             });
           })
         }
         else{
-          return response.data
+          return {success: false, error: response.data.errmsg, ...response.data}
         }
       }
     }));
@@ -127,10 +139,16 @@ export class UserController {
                       };
           let id = data._id
           return this.userService.update(id, user).then((res)=>{
-            return res;
+            return {
+              success : true,
+              message : 'user token successfully revoked',
+              data    : res
+            };
         });
         }
-        return response.data
+        else{
+          return {success: false, error: response.data.errmsg, ...response.data}
+        }
       }
     }));
 
