@@ -46,7 +46,7 @@ let UserController = class UserController {
         let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (!response.data.errcode) {
-                    this.userService.create(response.data.username, userData.username, userData.password, userData.date);
+                    this.userService.create(response.data.username, user.username, userData.password, userData.date);
                     return {
                         success: true,
                         message: 'user successfully signed up',
