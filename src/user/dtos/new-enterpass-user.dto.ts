@@ -4,6 +4,10 @@ export class NewEnterPassUserDTO {
 
   @IsNotEmpty()
   @IsString()
+  usernameHash: string;
+
+  @IsNotEmpty()
+  @IsString()
   username: string;
 
   @IsNotEmpty()

@@ -2,6 +2,7 @@
 import { Document } from 'mongoose';
 export declare type UserDocument = User & Document;
 export declare class User {
+    usernameHash: string;
     username: string;
     password: string;
     date: number;

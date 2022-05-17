@@ -16,6 +16,10 @@ let User = class User {
 __decorate([
     (0, mongoose_1.Prop)({ required: true, unique: true }),
     __metadata("design:type", String)
+], User.prototype, "usernameHash", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, unique: true }),
+    __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),

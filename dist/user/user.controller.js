@@ -46,7 +46,7 @@ let UserController = class UserController {
         let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (!response.data.errcode) {
-                    this.userService.create(response.data.username, userData.password, userData.date);
+                    this.userService.create(response.data.username, userData.username, userData.password, userData.date);
                     return {
                         success: true,
                         message: 'user successfully signed up',
@@ -80,19 +80,25 @@ let UserController = class UserController {
                 if (response.data.access_token) {
                     let username = enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHash;
                     return this.userService.findByUsername(username).then((res) => {
-                        let user = { uid: response.data.uid,
-                            openid: response.data.openid,
-                            scope: response.data.scope,
-                            refresh_token: response.data.refresh_token,
-                            access_token: response.data.token_type + ' ' + response.data.access_token,
-                        };
-                        return this.userService.update(res._id, user).then((res) => {
-                            return {
-                                success: true,
-                                message: 'user successfully logged in',
-                                data: res
+                        if (res._id) {
+                            let user = { uid: response.data.uid,
+                                openid: response.data.openid,
+                                scope: response.data.scope,
+                                refresh_token: response.data.refresh_token,
+                                access_token: response.data.token_type + ' ' + response.data.access_token,
                             };
-                        });
+                            return this.userService.update(res._id, user).then((res) => {
+                                return {
+                                    success: true,
+                                    message: 'user successfully logged in',
+                                    data: res
+                                };
+                            });
+                        }
+                        else {
+                            response.data = {};
+                            return Object.assign({ success: false, error: 'unable to logged in' }, response.data);
+                        }
                     });
                 }
                 else {

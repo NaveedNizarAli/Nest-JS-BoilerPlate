@@ -36,11 +36,13 @@ export class UserService {
   }
 
   async create(
-    username : string,
-    password : string,
-    date     : string,
-  ): Promise<UserDocument> {
+    usernameHash : string,
+    username     : string,
+    password     : string,
+    date         : string,
+    )            : Promise<UserDocument> {
     const newUser = new this.userModel({
+      usernameHash,
       username,
       date,
       password,
