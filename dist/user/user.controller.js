@@ -62,13 +62,13 @@ let UserController = class UserController {
     }
     login(user) {
         let userData = Object.assign({}, user);
-        var usernameHash = crypto.createHash('md5').update(userData.username).digest('hex');
+        var usernameHashed = crypto.createHash('md5').update(userData.username).digest('hex');
         var passwordHash = crypto.createHash('md5').update(userData.password).digest('hex');
-        userData = Object.assign(Object.assign({}, userData), { username: usernameHash, password: passwordHash });
+        userData = Object.assign(Object.assign({}, userData), { username: usernameHashed, password: passwordHash });
         const params = new URLSearchParams();
         params.append('client_id', enterpassAppIds_1.EnterPassConfig.clientId);
         params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
-        params.append('username', enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHash);
+        params.append('username', enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHashed);
         params.append('password', passwordHash);
         const config = {
             headers: {
@@ -78,8 +78,8 @@ let UserController = class UserController {
         return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (response.data.access_token) {
-                    let username = enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHash;
-                    return this.userService.findByUsername(username).then((res) => {
+                    let usernameHash = enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHashed;
+                    return this.userService.findByUsername(usernameHash).then((res) => {
                         if (res._id) {
                             let user = { uid: response.data.uid,
                                 openid: response.data.openid,
