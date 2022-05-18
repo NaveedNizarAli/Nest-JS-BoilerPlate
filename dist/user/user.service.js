@@ -39,10 +39,11 @@ let UserService = class UserService {
     async find() {
         return this.userModel.find({}).exec();
     }
-    async create(usernameHash, username, password, date) {
+    async create(usernameHash, username, ttLockHash, password, date) {
         const newUser = new this.userModel({
             usernameHash,
             username,
+            ttLockHash,
             date,
             password,
         });

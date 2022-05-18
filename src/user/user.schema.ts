@@ -9,6 +9,8 @@ export class User {
   @Prop({ required: true, unique: true })
   usernameHash : string;
   @Prop({ required: true, unique: true })
+  ttLockHash : string;
+  @Prop({ required: true, unique: true })
   username : string;
   @Prop({ required: true })
   password: string;

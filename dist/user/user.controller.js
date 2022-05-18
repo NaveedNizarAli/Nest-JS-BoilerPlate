@@ -46,7 +46,7 @@ let UserController = class UserController {
         let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (!response.data.errcode) {
-                    this.userService.create(response.data.username, user.username, userData.password, userData.date);
+                    this.userService.create(response.data.username, user.username, response.data.username, userData.password, userData.date);
                     return {
                         success: true,
                         message: 'user successfully signed up',
@@ -68,8 +68,9 @@ let UserController = class UserController {
         const params = new URLSearchParams();
         params.append('client_id', enterpassAppIds_1.EnterPassConfig.clientId);
         params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
-        params.append('username', enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHashed);
         params.append('password', passwordHash);
+        const data = this.userService.findByUsername(user.username).then((res) => { return res; });
+        console.log('data', data);
         const config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -78,7 +79,6 @@ let UserController = class UserController {
         return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (response.data.access_token) {
-                    let usernameHash = enterpassAppIds_1.EnterPassConfig.prefix + '_' + usernameHashed;
                     return this.userService.findByUsername(user.username).then((res) => {
                         if (res._id) {
                             let user = { uid: response.data.uid,
