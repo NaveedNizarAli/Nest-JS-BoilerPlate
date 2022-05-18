@@ -43,7 +43,8 @@ export class UserController {
     let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params , config).pipe( map(response => {
       if(response) {
         if(!response.data.errcode) {
-          this.userService.create(response.data.username, user.username, response.data.username,  userData.password, userData.date)
+          console.log('response.data.username', response.data.username)
+          this.userService.create(usernameHash, user.username, response.data.username,  userData.password, userData.date)
           return {
             success : true,
             message : 'user successfully signed up',
@@ -60,14 +61,13 @@ export class UserController {
   }
 
   @Post('login')
-  login(@Body() user: ExistingUserDTO): Observable<AxiosResponse<any>>  {
+  login(@Body() user: ExistingUserDTO): Promise<any>  {
    
     let userData = {...user};
     
     var usernameHashed = crypto.createHash('md5').update(userData.username).digest('hex');
     var passwordHash = crypto.createHash('md5').update(userData.password).digest('hex');
 
-    
     userData = {...userData, username: usernameHashed, password: passwordHash}
 
       const params = new URLSearchParams();
@@ -76,46 +76,49 @@ export class UserController {
       params.append('client_secret', EnterPassConfig.clientSecret);
       params.append('password', passwordHash);
       
-      const data = this.userService.findByUsername(user.username).then((res)=>{return res})
-      console.log('data', data)
-      // if(data.ttLockHash) params.append('username', data.ttLockHash);
-      
-    const config = {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }
+      return this.userService.findByUsername(user.username).then((res)=>{
+          console.log('res', res);
+        if(res && res._id){
 
-    return this.httpService.post('https://api.ttlock.com/oauth2/token', params , config).pipe( map(response => {
-      if(response) {
-        if(response.data.access_token) {
-          return this.userService.findByUsername(user.username).then((res)=>{
-            if(res._id){
-              let user =  {   uid           : response.data.uid, 
-                              openid        : response.data.openid,
-                              scope         : response.data.scope,
-                              refresh_token : response.data.refresh_token,
-                              access_token  : response.data.token_type + ' ' +response.data.access_token,
-                          };
-              return this.userService.update(res._id, user).then((res)=>{
-                  return {
-                    success : true,
-                    message : 'user successfully logged in',
-                    data    : res
-                  };
-              });
-            }
-            else {
-              response.data = {};
-              return {success: false, error: 'unable to logged in', ...response.data}
-            }
-          })
+          params.append('username', res.ttLockHash);
+             
+           const config = {
+             headers: {
+               'Content-Type': 'application/x-www-form-urlencoded'
+             }
+           }
+       
+           return this.httpService.post('https://api.ttlock.com/oauth2/token', params , config).pipe( map(response => {
+             if(response) {
+               if(response.data.access_token) {
+                     let user =  {   uid           : response.data.uid, 
+                                     openid        : response.data.openid,
+                                     scope         : response.data.scope,
+                                     refresh_token : response.data.refresh_token,
+                                     access_token  : response.data.token_type + ' ' +response.data.access_token,
+                                 };
+                     return this.userService.update(res._id, user).then((res)=>{
+                         return {
+                           success : true,
+                           message : 'user successfully logged in',
+                           data    : res
+                         };
+                     });
+                   }
+               }
+               else{
+                 return {success: false, error: response.data.errmsg, message :response.data.errmsg }
+               }
+           }));
         }
-        else{
-          return {success: false, error: response.data.errmsg, ...response.data}
+        else {
+          return {success: false, error: 'unable to logged in', message: 'unable to logged in'}
         }
-      }
-    }));
+      }).catch((err)=>{
+        console.log('err', err);
+        return err
+      })
+    
 
   }
 

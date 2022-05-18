@@ -46,7 +46,8 @@ let UserController = class UserController {
         let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (!response.data.errcode) {
-                    this.userService.create(response.data.username, user.username, response.data.username, userData.password, userData.date);
+                    console.log('response.data.username', response.data.username);
+                    this.userService.create(usernameHash, user.username, response.data.username, userData.password, userData.date);
                     return {
                         success: true,
                         message: 'user successfully signed up',
@@ -69,18 +70,18 @@ let UserController = class UserController {
         params.append('client_id', enterpassAppIds_1.EnterPassConfig.clientId);
         params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
         params.append('password', passwordHash);
-        const data = this.userService.findByUsername(user.username).then((res) => { return res; });
-        console.log('data', data);
-        const config = {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-        return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
-            if (response) {
-                if (response.data.access_token) {
-                    return this.userService.findByUsername(user.username).then((res) => {
-                        if (res._id) {
+        return this.userService.findByUsername(user.username).then((res) => {
+            console.log('res', res);
+            if (res && res._id) {
+                params.append('username', res.ttLockHash);
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                };
+                return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
+                    if (response) {
+                        if (response.data.access_token) {
                             let user = { uid: response.data.uid,
                                 openid: response.data.openid,
                                 scope: response.data.scope,
@@ -95,17 +96,19 @@ let UserController = class UserController {
                                 };
                             });
                         }
-                        else {
-                            response.data = {};
-                            return Object.assign({ success: false, error: 'unable to logged in' }, response.data);
-                        }
-                    });
-                }
-                else {
-                    return Object.assign({ success: false, error: response.data.errmsg }, response.data);
-                }
+                    }
+                    else {
+                        return { success: false, error: response.data.errmsg, message: response.data.errmsg };
+                    }
+                }));
             }
-        }));
+            else {
+                return { success: false, error: 'unable to logged in', message: 'unable to logged in' };
+            }
+        }).catch((err) => {
+            console.log('err', err);
+            return err;
+        });
     }
     RevokeToken(data) {
         const params = new URLSearchParams();
@@ -154,7 +157,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [existing_user_dto_1.ExistingUserDTO]),
-    __metadata("design:returntype", rxjs_1.Observable)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('refreshToken'),

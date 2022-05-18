@@ -10,6 +10,6 @@ export declare class UserController {
     private readonly httpService;
     constructor(userService: UserService, httpService: HttpService);
     register(user: NewEnterPassUserDTO): Observable<AxiosResponse<any>>;
-    login(user: ExistingUserDTO): Observable<AxiosResponse<any>>;
+    login(user: ExistingUserDTO): Promise<any>;
     RevokeToken(data: RefreshTokenDTO): Observable<AxiosResponse<any>>;
 }
