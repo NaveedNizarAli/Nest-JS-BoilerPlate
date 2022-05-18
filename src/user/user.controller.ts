@@ -88,7 +88,7 @@ export class UserController {
       if(response) {
         if(response.data.access_token) {
           let usernameHash = EnterPassConfig.prefix +'_'+ usernameHashed
-          return this.userService.findByUsername(usernameHash).then((res)=>{
+          return this.userService.findByUsername(user.username).then((res)=>{
             if(res._id){
               let user =  {   uid           : response.data.uid, 
                               openid        : response.data.openid,
