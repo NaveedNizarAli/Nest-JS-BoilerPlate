@@ -47,7 +47,7 @@ let UserController = class UserController {
             if (response) {
                 if (!response.data.errcode) {
                     console.log('response.data.username', response.data.username);
-                    this.userService.create(usernameHash, user.username, response.data.username, userData.password, userData.date);
+                    this.userService.create(usernameHash, user.username, response.data.username, userData.password, userData.date, user.fullName);
                     return {
                         success: true,
                         message: 'user successfully signed up',

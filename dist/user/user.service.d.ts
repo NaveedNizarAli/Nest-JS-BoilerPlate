@@ -8,6 +8,6 @@ export declare class UserService {
     findByUsername(username: string): Promise<UserDocument | null>;
     findById(id: string): Promise<UserDetails | null>;
     find(): Promise<User[]>;
-    create(usernameHash: string, username: string, ttLockHash: string, password: string, date: string): Promise<UserDocument>;
+    create(usernameHash: string, username: string, ttLockHash: string, password: string, date: string, fullName: string): Promise<UserDocument>;
     update(id: string, user: Object): Promise<UserDocument>;
 }

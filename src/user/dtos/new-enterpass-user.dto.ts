@@ -8,6 +8,10 @@ export class NewEnterPassUserDTO {
 
   @IsNotEmpty()
   @IsString()
+  fullName: string;
+
+  @IsNotEmpty()
+  @IsString()
   password: string;
 
   @IsNotEmpty()

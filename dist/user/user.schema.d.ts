@@ -5,6 +5,7 @@ export declare class User {
     usernameHash: string;
     ttLockHash: string;
     username: string;
+    fullName: string;
     password: string;
     date: number;
     uid: number;

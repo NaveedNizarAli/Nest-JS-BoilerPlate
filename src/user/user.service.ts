@@ -38,9 +38,10 @@ export class UserService {
   async create(
     usernameHash : string,
     username     : string,
-    ttLockHash     : string,
+    ttLockHash   : string,
     password     : string,
     date         : string,
+    fullName     : string,
     )            : Promise<UserDocument> {
     const newUser = new this.userModel({
       usernameHash,
@@ -48,6 +49,7 @@ export class UserService {
       ttLockHash,
       date,
       password,
+      fullName
     });
     return newUser.save();
   }
