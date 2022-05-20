@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { Body, Controller, Get, HttpException, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { catchError, map, Observable } from 'rxjs';
@@ -8,6 +8,8 @@ import * as crypto from 'crypto';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
 import { ExistingUserDTO } from './dtos/existing-user.dto';
 import { RefreshTokenDTO } from './dtos/refresh_token.dto';
+import { UpdateUserEnterPass } from './dtos/update-user.dto';
+import { UserDocument } from './user.schema';
 
 @Controller('user')
 export class UserController {
@@ -162,6 +164,25 @@ export class UserController {
       }
     }));
 
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() user: UpdateUserEnterPass) {
+    let data =  await this.userService.update(id, user);
+    if(data._id){
+      return {
+        success : true,
+        message : 'user successfully update',
+        data : data
+      }
+    }
+    else{
+      return {
+        success : false,
+        message : 'user unable to update',
+        error   : 'user unable to update',
+      }
+    }
   }
 
 

@@ -5,4 +5,7 @@ export declare class UpdateUserEnterPass {
     uid: number;
     openid: number;
     scope: string;
+    refresh_token: string;
+    access_token: string;
+    profileType: number[];
 }

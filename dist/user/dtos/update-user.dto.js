@@ -11,31 +11,54 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserEnterPass = void 0;
 const class_validator_1 = require("class-validator");
+const profileEnum_1 = require("../../enums/profileEnum");
 class UpdateUserEnterPass {
 }
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserEnterPass.prototype, "username", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserEnterPass.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserEnterPass.prototype, "date", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateUserEnterPass.prototype, "uid", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
 ], UpdateUserEnterPass.prototype, "openid", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], UpdateUserEnterPass.prototype, "scope", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "refresh_token", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "access_token", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)({}, { each: true }),
+    (0, class_validator_1.IsEnum)(profileEnum_1.ProfileTypeEnum),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdateUserEnterPass.prototype, "profileType", void 0);
 exports.UpdateUserEnterPass = UpdateUserEnterPass;
 //# sourceMappingURL=update-user.dto.js.map

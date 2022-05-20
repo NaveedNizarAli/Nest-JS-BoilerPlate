@@ -12,6 +12,8 @@ const mongoose_1 = require("@nestjs/mongoose");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const user_module_1 = require("./user/user.module");
+const booking_module_1 = require("./booking/booking.module");
+const lock_module_1 = require("./lock/lock.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -19,6 +21,8 @@ AppModule = __decorate([
         imports: [
             mongoose_1.MongooseModule.forRoot('mongodb+srv://enterpass:enterpass+Admin123@isystematic.hwgem.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'),
             user_module_1.UserModule,
+            booking_module_1.BookingModule,
+            lock_module_1.LockModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -49,7 +49,8 @@ export class UserService {
       ttLockHash,
       date,
       password,
-      fullName
+      fullName,
+      userType : [0],
     });
     return newUser.save();
   }

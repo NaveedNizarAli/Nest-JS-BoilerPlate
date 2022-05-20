@@ -13,5 +13,7 @@ export declare class User {
     scope: string;
     access_token: string;
     refresh_token: string;
+    userType: Array<number>;
+    profileType: Array<number>;
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, any, any>, import("mongoose").Model<Document<User, any, any>, any, any, any>, any, any>;

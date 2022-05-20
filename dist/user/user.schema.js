@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.User = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
+const profileEnum_1 = require("../enums/profileEnum");
+const userType_1 = require("../enums/userType");
 let User = class User {
 };
 __decorate([
@@ -57,6 +59,14 @@ __decorate([
     (0, mongoose_1.Prop)({}),
     __metadata("design:type", String)
 ], User.prototype, "refresh_token", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [Number], default: [0], enum: profileEnum_1.ProfileTypeEnum }),
+    __metadata("design:type", Array)
+], User.prototype, "userType", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ type: [Number], enum: userType_1.UserTypeEnum }),
+    __metadata("design:type", Array)
+], User.prototype, "profileType", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

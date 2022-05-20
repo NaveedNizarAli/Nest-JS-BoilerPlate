@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import { Document } from 'mongoose';
+import { ProfileTypeEnum } from 'src/enums/profileEnum';
+import { UserTypeEnum } from 'src/enums/userType';
 
 export type UserDocument = User & Document;
 
@@ -30,6 +32,10 @@ export class User {
   access_token : string;
   @Prop({})
   refresh_token: string;
+  @Prop({type: [Number], default : [0], enum: ProfileTypeEnum})
+  userType: Array<number>;
+  @Prop({type: [Number], enum: UserTypeEnum})
+  profileType: Array<number>;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -22,6 +22,7 @@ const crypto = require("crypto");
 const enterpassAppIds_1 = require("../enums/enterpassAppIds");
 const existing_user_dto_1 = require("./dtos/existing-user.dto");
 const refresh_token_dto_1 = require("./dtos/refresh_token.dto");
+const update_user_dto_1 = require("./dtos/update-user.dto");
 let UserController = class UserController {
     constructor(userService, httpService) {
         this.userService = userService;
@@ -144,6 +145,23 @@ let UserController = class UserController {
             }
         }));
     }
+    async update(id, user) {
+        let data = await this.userService.update(id, user);
+        if (data._id) {
+            return {
+                success: true,
+                message: 'user successfully update',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'user unable to update',
+                error: 'user unable to update',
+            };
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('register'),
@@ -166,6 +184,14 @@ __decorate([
     __metadata("design:paramtypes", [refresh_token_dto_1.RefreshTokenDTO]),
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "RevokeToken", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserEnterPass]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "update", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService, axios_1.HttpService])
