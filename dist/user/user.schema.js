@@ -60,6 +60,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "refresh_token", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true, default: false }),
+    __metadata("design:type", String)
+], User.prototype, "delete", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ type: [Number], default: [0], enum: profileEnum_1.ProfileTypeEnum }),
     __metadata("design:type", Array)
 ], User.prototype, "userType", void 0);

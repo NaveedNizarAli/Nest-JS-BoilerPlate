@@ -7,7 +7,7 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors();
     app.setGlobalPrefix('api');
-    app.useGlobalPipes(new common_1.ValidationPipe({ disableErrorMessages: false }));
+    app.useGlobalPipes(new common_1.ValidationPipe({ transform: true, disableErrorMessages: false }));
     await app.listen(4080);
 }
 bootstrap();

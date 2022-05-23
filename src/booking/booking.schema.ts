@@ -11,13 +11,13 @@ export class Booking {
   @Prop({ required: true })
   createdBy : string;
   @Prop({ required: true })
-  startDate : Date;
+  startDate : Number;
   @Prop({ required: true })
-  endDate : Date;
-  @Prop({ required: true })
+  endDate : Number;
+  @Prop({ })
   lockId : string;
   @Prop({ required: true })
-  conatctId: string;
+  contactId: string;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);

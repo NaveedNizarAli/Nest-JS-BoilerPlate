@@ -32,6 +32,8 @@ export class User {
   access_token : string;
   @Prop({})
   refresh_token: string;
+  @Prop({ required: true, default: false })
+  delete : string;
   @Prop({type: [Number], default : [0], enum: ProfileTypeEnum})
   userType: Array<number>;
   @Prop({type: [Number], enum: UserTypeEnum})

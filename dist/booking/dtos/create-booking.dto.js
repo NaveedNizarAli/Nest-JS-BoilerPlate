@@ -9,35 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BookingSchema = exports.Booking = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-let Booking = class Booking {
-};
+exports.CreateBookingDTO = void 0;
+const class_validator_1 = require("class-validator");
+class CreateBookingDTO {
+}
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Booking.prototype, "createdBy", void 0);
+], CreateBookingDTO.prototype, "createdBy", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], Booking.prototype, "startDate", void 0);
+], CreateBookingDTO.prototype, "startDate", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], Booking.prototype, "endDate", void 0);
+], CreateBookingDTO.prototype, "endDate", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({}),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Booking.prototype, "lockId", void 0);
+], CreateBookingDTO.prototype, "contactId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
-], Booking.prototype, "contactId", void 0);
-Booking = __decorate([
-    (0, mongoose_1.Schema)({
-        timestamps: true,
-    })
-], Booking);
-exports.Booking = Booking;
-exports.BookingSchema = mongoose_1.SchemaFactory.createForClass(Booking);
-//# sourceMappingURL=booking.schema.js.map
+], CreateBookingDTO.prototype, "lockId", void 0);
+exports.CreateBookingDTO = CreateBookingDTO;
+//# sourceMappingURL=create-booking.dto.js.map
