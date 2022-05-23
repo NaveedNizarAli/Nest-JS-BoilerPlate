@@ -31,11 +31,7 @@ export class BookingService {
 
     async getByCreatedBy(createdBy: string,) : Promise<any> {
         return await this.bookingModel.find({
-            createdBy: {
-              $all:  [
-                createdBy,
-              ]
-            }
+            createdBy: createdBy
         });
     }
 }
