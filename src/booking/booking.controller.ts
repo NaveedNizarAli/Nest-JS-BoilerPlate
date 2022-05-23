@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { BookingService } from './booking.service';
 import { CreateBookingDTO } from './dtos/create-booking.dto';
 
@@ -12,15 +12,53 @@ export class BookingController {
         if(data._id){
             return {
               success : true,
-              message : 'contact successfully created',
+              message : 'booking successfully created',
               data : data
             }
         }
         else{
             return {
                 success : false,
-                message : 'contact unable to create',
-                error   : 'contact unable to create',
+                message : 'booking unable to create',
+                error   : 'booking unable to create',
+            }
+        }
+    }
+
+    @Get('getall')
+    async findAll() {
+        let data = await this.bookingService.getall();
+        if(data.length > 0){
+            return {
+              success : true,
+              message : 'bookings successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find bookings',
+                error   : 'unable to find bookings',
+            }
+        }
+    }
+
+    @Get('/createdBy/:createdBy')
+    async getCreatedBy(@Param('createdBy') createdBy: string) {
+        let data = await this.bookingService.getByCreatedBy(createdBy);
+        if(data.length > 0){
+            return {
+              success : true,
+              message : 'bookings successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find bookings',
+                error   : 'unable to find bookings',
             }
         }
     }

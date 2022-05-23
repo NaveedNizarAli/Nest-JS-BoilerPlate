@@ -33,6 +33,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Booking.prototype, "contactId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: false }),
+    __metadata("design:type", Boolean)
+], Booking.prototype, "delete", void 0);
 Booking = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

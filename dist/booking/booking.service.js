@@ -25,6 +25,25 @@ let BookingService = class BookingService {
         const newBooking = new this.bookingModel(booking);
         return newBooking.save();
     }
+    async getall() {
+        let data = await this.bookingModel.find({});
+        let dataArray = [];
+        for (const element of data) {
+            console.log(element.delete);
+            if (!element.delete)
+                dataArray.push(element);
+        }
+        return dataArray;
+    }
+    async getByCreatedBy(createdBy) {
+        return await this.bookingModel.find({
+            createdBy: {
+                $all: [
+                    createdBy,
+                ]
+            }
+        });
+    }
 };
 BookingService = __decorate([
     (0, common_1.Injectable)(),

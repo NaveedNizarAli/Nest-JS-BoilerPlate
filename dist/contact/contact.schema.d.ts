@@ -5,7 +5,7 @@ export declare class Contact {
     fullName: string;
     dialingCode: string;
     phoneNumber: string;
-    delete: string;
+    delete: Boolean;
     completePhoneNumber: string;
     email: string;
     createdBy: Array<string>;

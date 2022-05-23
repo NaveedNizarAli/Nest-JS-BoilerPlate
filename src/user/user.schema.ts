@@ -33,7 +33,7 @@ export class User {
   @Prop({})
   refresh_token: string;
   @Prop({ required: true, default: false })
-  delete : string;
+  delete : Boolean;
   @Prop({type: [Number], default : [0], enum: ProfileTypeEnum})
   userType: Array<number>;
   @Prop({type: [Number], enum: UserTypeEnum})

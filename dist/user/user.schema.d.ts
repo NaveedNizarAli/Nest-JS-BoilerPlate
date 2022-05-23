@@ -13,7 +13,7 @@ export declare class User {
     scope: string;
     access_token: string;
     refresh_token: string;
-    delete: string;
+    delete: Boolean;
     userType: Array<number>;
     profileType: Array<number>;
 }

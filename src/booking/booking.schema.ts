@@ -18,6 +18,8 @@ export class Booking {
   lockId : string;
   @Prop({ required: true })
   contactId: string;
+  @Prop({ required: true, default: false })
+  delete: Boolean;
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking);

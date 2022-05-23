@@ -15,7 +15,7 @@ export class Contact {
   @Prop({ required: true })
   phoneNumber : string;
   @Prop({ required: true, default: false })
-  delete : string;
+  delete : Boolean;
   @Prop({ required: true })
   completePhoneNumber : string;
   @Prop({ required: true, unique: true })

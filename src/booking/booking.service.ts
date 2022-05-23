@@ -16,4 +16,26 @@ export class BookingService {
             return newBooking.save();
         
     }
+
+    async getall() : Promise<any> {
+        let data = await this.bookingModel.find({});
+        
+        let dataArray = [];
+        for (const element of data) {
+            console.log(element.delete);
+            if(!element.delete) dataArray.push(element)
+        }
+
+        return dataArray;
+    }
+
+    async getByCreatedBy(createdBy: string,) : Promise<any> {
+        return await this.bookingModel.find({
+            createdBy: {
+              $all:  [
+                createdBy,
+              ]
+            }
+        });
+    }
 }

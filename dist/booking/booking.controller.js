@@ -25,15 +25,49 @@ let BookingController = class BookingController {
         if (data._id) {
             return {
                 success: true,
-                message: 'contact successfully created',
+                message: 'booking successfully created',
                 data: data
             };
         }
         else {
             return {
                 success: false,
-                message: 'contact unable to create',
-                error: 'contact unable to create',
+                message: 'booking unable to create',
+                error: 'booking unable to create',
+            };
+        }
+    }
+    async findAll() {
+        let data = await this.bookingService.getall();
+        if (data.length > 0) {
+            return {
+                success: true,
+                message: 'bookings successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find bookings',
+                error: 'unable to find bookings',
+            };
+        }
+    }
+    async getCreatedBy(createdBy) {
+        let data = await this.bookingService.getByCreatedBy(createdBy);
+        if (data.length > 0) {
+            return {
+                success: true,
+                message: 'bookings successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find bookings',
+                error: 'unable to find bookings',
             };
         }
     }
@@ -45,6 +79,19 @@ __decorate([
     __metadata("design:paramtypes", [create_booking_dto_1.CreateBookingDTO]),
     __metadata("design:returntype", Promise)
 ], BookingController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('getall'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], BookingController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('/createdBy/:createdBy'),
+    __param(0, (0, common_1.Param)('createdBy')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], BookingController.prototype, "getCreatedBy", null);
 BookingController = __decorate([
     (0, common_1.Controller)('booking'),
     __metadata("design:paramtypes", [booking_service_1.BookingService])

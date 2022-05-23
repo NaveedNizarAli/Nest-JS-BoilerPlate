@@ -38,7 +38,7 @@ let ContactService = class ContactService {
         let dataArray = [];
         for (const element of data) {
             console.log(element.delete);
-            if (element.delete === "false")
+            if (!element.delete)
                 dataArray.push(element);
         }
         return dataArray;

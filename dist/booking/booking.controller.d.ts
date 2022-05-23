@@ -14,4 +14,26 @@ export declare class BookingController {
         error: string;
         data?: undefined;
     }>;
+    findAll(): Promise<{
+        success: boolean;
+        message: string;
+        data: any;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: string;
+        data?: undefined;
+    }>;
+    getCreatedBy(createdBy: string): Promise<{
+        success: boolean;
+        message: string;
+        data: any;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: string;
+        data?: undefined;
+    }>;
 }

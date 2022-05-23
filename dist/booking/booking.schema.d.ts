@@ -7,5 +7,6 @@ export declare class Booking {
     endDate: Number;
     lockId: string;
     contactId: string;
+    delete: Boolean;
 }
 export declare const BookingSchema: import("mongoose").Schema<Document<Booking, any, any>, import("mongoose").Model<Document<Booking, any, any>, any, any, any>, any, any>;

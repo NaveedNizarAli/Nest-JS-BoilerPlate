@@ -33,7 +33,7 @@ export class ContactService {
         let dataArray = [];
         for (const element of data) {
             console.log(element.delete);
-            if(element.delete === "false") dataArray.push(element)
+            if(!element.delete) dataArray.push(element)
         }
 
         return dataArray;

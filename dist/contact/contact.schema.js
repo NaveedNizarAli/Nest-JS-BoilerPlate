@@ -27,7 +27,7 @@ __decorate([
 ], Contact.prototype, "phoneNumber", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
-    __metadata("design:type", String)
+    __metadata("design:type", Boolean)
 ], Contact.prototype, "delete", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
