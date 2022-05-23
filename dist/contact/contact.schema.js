@@ -41,6 +41,14 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [String] }),
     __metadata("design:type", Array)
 ], Contact.prototype, "createdBy", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], Contact.prototype, "created", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], Contact.prototype, "updated", void 0);
 Contact = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

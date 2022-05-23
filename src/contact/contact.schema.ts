@@ -22,6 +22,10 @@ export class Contact {
   email : string;
   @Prop({type: [String]})
   createdBy: Array<string>;
+  @Prop({required : true, default : new Date().valueOf()})
+  created : Number;
+  @Prop({required : true, default: new Date().valueOf()})
+  updated : Number;
 }
 
 export const ContactSchema = SchemaFactory.createForClass(Contact);

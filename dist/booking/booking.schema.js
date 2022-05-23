@@ -37,6 +37,14 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], Booking.prototype, "delete", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], Booking.prototype, "created", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], Booking.prototype, "updated", void 0);
 Booking = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

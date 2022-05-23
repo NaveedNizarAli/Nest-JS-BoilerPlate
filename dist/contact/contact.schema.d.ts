@@ -9,5 +9,7 @@ export declare class Contact {
     completePhoneNumber: string;
     email: string;
     createdBy: Array<string>;
+    created: Number;
+    updated: Number;
 }
 export declare const ContactSchema: import("mongoose").Schema<Document<Contact, any, any>, import("mongoose").Model<Document<Contact, any, any>, any, any, any>, any, any>;

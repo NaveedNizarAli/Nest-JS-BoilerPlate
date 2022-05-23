@@ -38,6 +38,10 @@ export class User {
   userType: Array<number>;
   @Prop({type: [Number], enum: UserTypeEnum})
   profileType: Array<number>;
+  @Prop({required : true, default : new Date().valueOf()})
+  created : Number;
+  @Prop({required : true, default: new Date().valueOf()})
+  updated : Number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

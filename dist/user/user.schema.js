@@ -71,6 +71,14 @@ __decorate([
     (0, mongoose_1.Prop)({ type: [Number], enum: userType_1.UserTypeEnum }),
     __metadata("design:type", Array)
 ], User.prototype, "profileType", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], User.prototype, "created", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    __metadata("design:type", Number)
+], User.prototype, "updated", void 0);
 User = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

@@ -16,5 +16,7 @@ export declare class User {
     delete: Boolean;
     userType: Array<number>;
     profileType: Array<number>;
+    created: Number;
+    updated: Number;
 }
 export declare const UserSchema: import("mongoose").Schema<Document<User, any, any>, import("mongoose").Model<Document<User, any, any>, any, any, any>, any, any>;
