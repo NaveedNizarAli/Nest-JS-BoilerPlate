@@ -93,7 +93,6 @@ export class UserController {
       
       return this.userService.findByUsername(user.username).then((res)=>{
         if(res && res._id){
-          console.log('res', res);
           params.append('username', res.ttLockHash);
              
            const config = {
@@ -104,7 +103,6 @@ export class UserController {
        
            return this.httpService.post('https://api.ttlock.com/oauth2/token', params , config).pipe( map(response => {
              if(!response.data.errcode) {
-              console.log('response', response);
                if(response.data.access_token) {
                      let user =  {   uid           : response.data.uid, 
                                      openid        : response.data.openid,
