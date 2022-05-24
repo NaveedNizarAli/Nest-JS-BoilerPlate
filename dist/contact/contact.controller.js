@@ -16,6 +16,7 @@ exports.ContactController = void 0;
 const common_1 = require("@nestjs/common");
 const contact_service_1 = require("./contact.service");
 const create_contact_dto_1 = require("./dtos/create-contact.dto");
+const update_contact_dto_1 = require("./dtos/update-contact.dto");
 let ContactController = class ContactController {
     constructor(contactService) {
         this.contactService = contactService;
@@ -88,6 +89,23 @@ let ContactController = class ContactController {
             };
         }
     }
+    async update(id, user) {
+        let data = await this.contactService.update(id, user);
+        if (data._id) {
+            return {
+                success: true,
+                message: 'contact successfully update',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'contact unable to update',
+                error: 'contact unable to update',
+            };
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -116,6 +134,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ContactController.prototype, "getCreatedBy", null);
+__decorate([
+    (0, common_1.Put)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_contact_dto_1.UpdateContactDTO]),
+    __metadata("design:returntype", Promise)
+], ContactController.prototype, "update", null);
 ContactController = __decorate([
     (0, common_1.Controller)('contact'),
     __metadata("design:paramtypes", [contact_service_1.ContactService])

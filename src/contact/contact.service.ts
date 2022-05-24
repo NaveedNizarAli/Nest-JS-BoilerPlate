@@ -52,4 +52,10 @@ export class ContactService {
             }
         });
     }
+
+
+    async update(id: string, contact: Object): Promise<ContactDocument> {
+        return await this.contactModal.findByIdAndUpdate(id, contact, {new: true})
+    }
+
 }

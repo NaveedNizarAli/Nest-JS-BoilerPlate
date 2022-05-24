@@ -55,6 +55,9 @@ let ContactService = class ContactService {
             }
         });
     }
+    async update(id, contact) {
+        return await this.contactModal.findByIdAndUpdate(id, contact, { new: true });
+    }
 };
 ContactService = __decorate([
     (0, common_1.Injectable)(),

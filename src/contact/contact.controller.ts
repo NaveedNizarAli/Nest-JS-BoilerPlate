@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Req } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { CreateContactDTO } from './dtos/create-contact.dto';
 import { Request } from 'express';
+import { UpdateContactDTO } from './dtos/update-contact.dto';
 
 @Controller('contact')
 export class ContactController {
@@ -80,6 +81,25 @@ export class ContactController {
                 message : 'unable to find contact',
                 error   : 'unable to find contact',
             }
+        }
+    }
+
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() user: UpdateContactDTO) {
+        let data =  await this.contactService.update(id, user);
+        if(data._id){
+        return {
+            success : true,
+            message : 'contact successfully update',
+            data : data
+        }
+        }
+        else{
+        return {
+            success : false,
+            message : 'contact unable to update',
+            error   : 'contact unable to update',
+        }
         }
     }
 

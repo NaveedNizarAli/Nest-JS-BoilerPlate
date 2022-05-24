@@ -45,13 +45,24 @@ export class UserController {
     let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params , config).pipe( map(response => {
       if(response) {
         if(!response.data.errcode) {
-          console.log('response.data.username', response.data.username)
-          this.userService.create(usernameHash, user.username, response.data.username,  userData.password, userData.date, user.fullName)
-          return {
-            success : true,
-            message : 'user successfully signed up',
-            data    : response.data
-          };
+          return this.userService.findByUsername(user.username).then((user)=>{
+            if(user._id) {
+              this.userService.update(user._id, {password: userData.password, date: userData.date, fullName: user.fullName})
+              return {
+                success : true,
+                message : 'user successfully signed up',
+                data    : response.data
+              };
+            }
+            else{
+              this.userService.create(usernameHash, user.username, response.data.username,  userData.password, userData.date, user.fullName)
+              return {
+                success : true,
+                message : 'user successfully signed up',
+                data    : response.data
+              };
+            }
+          })
         }
         else
         {
