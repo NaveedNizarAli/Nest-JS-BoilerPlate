@@ -20,6 +20,7 @@ export class UserController {
   register(@Body() user: NewEnterPassUserDTO): Observable<AxiosResponse<any>>  {
    
     let userData = {...user};
+    console.log('body', user);
     
     var usernameHash = crypto.createHash('md5').update(userData.username).digest('hex');
     var passwordHash = crypto.createHash('md5').update(userData.password).digest('hex');
@@ -45,9 +46,10 @@ export class UserController {
     let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params , config).pipe( map(response => {
       if(response) {
         if(!response.data.errcode) {
-          return this.userService.findByUsername(user.username).then((user)=>{
-            if(user._id) {
-              this.userService.update(user._id, {password: userData.password, date: userData.date, fullName: user.fullName})
+          return this.userService.findByUsername(user.username).then((userResponse)=>{
+            if(userResponse._id) {
+              let user = {password: userData.password, date: userData.date, fullName: userData.fullName}
+              this.userService.update(userResponse._id, user)
               return {
                 success : true,
                 message : 'user successfully signed up',
@@ -90,7 +92,6 @@ export class UserController {
       params.append('password', passwordHash);
       
       return this.userService.findByUsername(user.username).then((res)=>{
-          console.log('res', res);
         if(res && res._id){
 
           params.append('username', res.ttLockHash);
