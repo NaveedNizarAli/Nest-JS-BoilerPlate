@@ -45,6 +45,30 @@ __decorate([
 ], User.prototype, "uid", void 0);
 __decorate([
     (0, mongoose_1.Prop)({}),
+    __metadata("design:type", String)
+], User.prototype, "locationName", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", Number)
+], User.prototype, "longitude", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", Number)
+], User.prototype, "latitude", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", String)
+], User.prototype, "oneSignalId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", String)
+], User.prototype, "phoneNumber", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", String)
+], User.prototype, "dialingCode", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
     __metadata("design:type", Number)
 ], User.prototype, "openid", void 0);
 __decorate([

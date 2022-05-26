@@ -49,7 +49,7 @@ let UserController = class UserController {
             if (response) {
                 if (!response.data.errcode) {
                     return this.userService.findByUsername(user.username).then((userResponse) => {
-                        if (userResponse._id) {
+                        if (userResponse && userResponse._id) {
                             let user = { password: userData.password, date: userData.date, fullName: userData.fullName };
                             this.userService.update(userResponse._id, user);
                             return {
@@ -158,7 +158,9 @@ let UserController = class UserController {
         }));
     }
     async update(id, user) {
+        console.log('user', user);
         let data = await this.userService.update(id, user);
+        console.log('data', data);
         if (data._id) {
             return {
                 success: true,

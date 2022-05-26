@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UpdateUserEnterPass = void 0;
 const class_validator_1 = require("class-validator");
-const profileEnum_1 = require("../../enums/profileEnum");
 class UpdateUserEnterPass {
 }
 __decorate([
@@ -55,10 +54,49 @@ __decorate([
     __metadata("design:type", String)
 ], UpdateUserEnterPass.prototype, "access_token", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)({}, { each: true }),
-    (0, class_validator_1.IsEnum)(profileEnum_1.ProfileTypeEnum),
+    (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", Array)
+    __metadata("design:type", Number)
 ], UpdateUserEnterPass.prototype, "profileType", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "locationName", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateUserEnterPass.prototype, "longitude", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateUserEnterPass.prototype, "latitude", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "oneSignalId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "phoneNumber", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "dialingCode", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateUserEnterPass.prototype, "fullName", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], UpdateUserEnterPass.prototype, "delete", void 0);
 exports.UpdateUserEnterPass = UpdateUserEnterPass;
 //# sourceMappingURL=update-user.dto.js.map

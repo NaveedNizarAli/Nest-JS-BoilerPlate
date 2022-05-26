@@ -7,5 +7,13 @@ export declare class UpdateUserEnterPass {
     scope: string;
     refresh_token: string;
     access_token: string;
-    profileType: number[];
+    profileType: number;
+    locationName: string;
+    longitude: number;
+    latitude: number;
+    oneSignalId: string;
+    phoneNumber: string;
+    dialingCode: string;
+    fullName: string;
+    delete: Boolean;
 }

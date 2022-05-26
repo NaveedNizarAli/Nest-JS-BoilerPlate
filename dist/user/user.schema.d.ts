@@ -9,6 +9,12 @@ export declare class User {
     password: string;
     date: number;
     uid: number;
+    locationName: string;
+    longitude: number;
+    latitude: number;
+    oneSignalId: string;
+    phoneNumber: string;
+    dialingCode: string;
     openid: number;
     scope: string;
     access_token: string;

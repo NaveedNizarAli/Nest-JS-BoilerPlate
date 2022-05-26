@@ -1,5 +1,5 @@
 import { UserService } from './user.service';
-import { Body, Controller, Get, HttpException, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
 import { catchError, map, Observable } from 'rxjs';
@@ -47,7 +47,7 @@ export class UserController {
       if(response) {
         if(!response.data.errcode) {
           return this.userService.findByUsername(user.username).then((userResponse)=>{
-            if(userResponse._id) {
+            if( userResponse && userResponse._id) {
               let user = {password: userData.password, date: userData.date, fullName: userData.fullName}
               this.userService.update(userResponse._id, user)
               return {
@@ -179,7 +179,9 @@ export class UserController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() user: UpdateUserEnterPass) {
+    console.log('user',user);
     let data =  await this.userService.update(id, user);
+    console.log('data', data);
     if(data._id){
       return {
         success : true,

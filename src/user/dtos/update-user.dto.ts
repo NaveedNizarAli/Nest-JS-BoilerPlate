@@ -1,4 +1,4 @@
-import { IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsEmail, IsEnum, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ProfileTypeEnum } from 'src/enums/profileEnum';
 
 export class UpdateUserEnterPass {
@@ -35,10 +35,41 @@ export class UpdateUserEnterPass {
   @IsOptional()
   access_token: string;
 
-  @IsNumber({},{each: true})
-  @IsEnum(ProfileTypeEnum)
+  @IsNumber()
   @IsOptional()
-  profileType: number[];
+  profileType: number;
+
+  @IsString()
+  @IsOptional()
+  locationName : string;
+
+  @IsNumber()
+  @IsOptional()
+  longitude : number;
+ 
+  @IsNumber()
+  @IsOptional()
+  latitude : number;
+
+  @IsString()
+  @IsOptional()
+  oneSignalId : string;
+
+  @IsString()
+  @IsOptional()
+  phoneNumber : string;
+
+  @IsString()
+  @IsOptional()
+  dialingCode : string;
+
+  @IsString()
+  @IsOptional()
+  fullName : string;
+
+  @IsBoolean()
+  @IsOptional()
+  delete : Boolean;
 
   
 }

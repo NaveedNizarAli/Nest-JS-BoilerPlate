@@ -25,6 +25,18 @@ export class User {
   @Prop({})
   uid: number;
   @Prop({})
+  locationName: string;
+  @Prop({})
+  longitude: number;
+  @Prop({})
+  latitude: number;
+  @Prop({})
+  oneSignalId: string;
+  @Prop({})
+  phoneNumber: string;
+  @Prop({})
+  dialingCode: string;
+  @Prop({})
   openid: number;
   @Prop({})
   scope: string;
