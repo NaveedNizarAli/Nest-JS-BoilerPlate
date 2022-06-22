@@ -18,6 +18,10 @@ export class Lock {
   lockDataString : string;
   @Prop({ required: true, default: false })
   delete: Boolean;
+  @Prop({required : true, default : new Date().valueOf()})
+  created : Number;
+  @Prop({required : true, default: new Date().valueOf()})
+  updated : Number;
 }
 
 export const LockSchema = SchemaFactory.createForClass(Lock);
