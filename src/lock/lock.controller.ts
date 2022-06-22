@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
@@ -33,7 +33,7 @@ export class LockController {
 
         let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params , config)).then( response =>{
            if(response){
-                return this.lockService.getById(response.data.lockId).then((lockResponse)=>{
+                return this.lockService.getByLockId(response.data.lockId).then((lockResponse)=>{
                     console.log('response', lockResponse);
                     if( lockResponse && lockResponse._id) {
                         return {success: false, error: 'lock already initialized ', message : 'lock already initialized', data: ''};
@@ -47,14 +47,15 @@ export class LockController {
         });
 
         if(data.success){
-            let result = await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId='+EnterPassConfig.clientId+'&accessToken='+lock.accessToken+'&lockId='+data.lockId +'&date='+ new Date().valueOf())).then( response =>{
-                    if(response && response.data.lockId) {
+            let result = await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+data.lockId +'&date='+ new Date().valueOf())).then( response =>{
+                console.log('response', response);  
+                if(response && response.data.lockId) {
                         return this.lockService.create({lockData : {...response.data}, createdBy : lock.createdBy, lockId: response.data.lockId}).then((res)=>{
                             return {sucess: true, message : 'lock initialized successfully', error : '', data : res}
                         })    
                     }
                 })
-
+             console.log('result', result);
             return result;
         }
         else {
@@ -63,6 +64,64 @@ export class LockController {
         
 
 
+    }
+
+    @Get('/getByLockId/:lockId')
+    async getByLockId(@Param('lockId') lockId: string) {
+        let data = await this.lockService.getByLockId(lockId);
+        if(data){
+            return {
+              success : true,
+              message : 'locks successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find locks',
+                error   : 'unable to find locks',
+            }
+        }
+    }
+
+
+    @Get('/createdBy/:createdBy')
+    async getCreatedBy(@Param('createdBy') createdBy: string) {
+        let data = await this.lockService.getByCreatedBy(createdBy);
+        if(data.length > 0){
+            return {
+              success : true,
+              message : 'locks successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find locks',
+                error   : 'unable to find locks',
+            }
+        }
+    }
+
+    @Get('getall')
+    async findAll() {
+        let data = await this.lockService.getall();
+        if(data.length > 0){
+            return {
+              success : true,
+              message : 'locks successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find locks',
+                error   : 'unable to find locks',
+            }
+        }
     }
 
 }

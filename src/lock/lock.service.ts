@@ -18,7 +18,25 @@ export class LockService {
         return newLock.save();
     }
 
-    async getById(id: string,) : Promise<LockDocument | null> {
+    async getByLockId(id: string,) : Promise<LockDocument | null> {
         return await this.lockModel.findOne({lockId : id}).exec();
+    }
+
+    async getByCreatedBy(createdBy: string,) : Promise<any> {
+        return await this.lockModel.find({
+            createdBy: createdBy
+        });
+    }
+
+    async getall() : Promise<any> {
+        let data = await this.lockModel.find({});
+        
+        let dataArray = [];
+        for (const element of data) {
+            console.log(element.delete);
+            if(!element.delete) dataArray.push(element)
+        }
+
+        return dataArray;
     }
 }

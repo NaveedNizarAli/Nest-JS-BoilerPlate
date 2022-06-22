@@ -25,8 +25,23 @@ let LockService = class LockService {
         const newLock = new this.lockModel(Object.assign({}, lock));
         return newLock.save();
     }
-    async getById(id) {
+    async getByLockId(id) {
         return await this.lockModel.findOne({ lockId: id }).exec();
+    }
+    async getByCreatedBy(createdBy) {
+        return await this.lockModel.find({
+            createdBy: createdBy
+        });
+    }
+    async getall() {
+        let data = await this.lockModel.find({});
+        let dataArray = [];
+        for (const element of data) {
+            console.log(element.delete);
+            if (!element.delete)
+                dataArray.push(element);
+        }
+        return dataArray;
     }
 };
 LockService = __decorate([

@@ -28,7 +28,8 @@ let LockController = class LockController {
         let lockData = Object.assign({}, lock);
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
-        params.append('accessToken', lock.accessToken);
+        let access_token = lock.accessToken.split(' ')[1];
+        params.append('accessToken', access_token);
         params.append('lockData', lock.lockData);
         params.append('date', new Date().valueOf().toString());
         const config = {
@@ -38,7 +39,7 @@ let LockController = class LockController {
         };
         let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params, config)).then(response => {
             if (response) {
-                return this.lockService.getById(response.data.lockId).then((lockResponse) => {
+                return this.lockService.getByLockId(response.data.lockId).then((lockResponse) => {
                     console.log('response', lockResponse);
                     if (lockResponse && lockResponse._id) {
                         return { success: false, error: 'lock already initialized ', message: 'lock already initialized', data: '' };
@@ -50,17 +51,70 @@ let LockController = class LockController {
             }
         });
         if (data.success) {
-            let result = await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + lock.accessToken + '&lockId=' + data.lockId + '&date=' + new Date().valueOf())).then(response => {
+            let result = await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + data.lockId + '&date=' + new Date().valueOf())).then(response => {
+                console.log('response', response);
                 if (response && response.data.lockId) {
                     return this.lockService.create({ lockData: Object.assign({}, response.data), createdBy: lock.createdBy, lockId: response.data.lockId }).then((res) => {
                         return { sucess: true, message: 'lock initialized successfully', error: '', data: res };
                     });
                 }
             });
+            console.log('result', result);
             return result;
         }
         else {
             return data;
+        }
+    }
+    async getByLockId(lockId) {
+        let data = await this.lockService.getByLockId(lockId);
+        if (data) {
+            return {
+                success: true,
+                message: 'locks successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find locks',
+                error: 'unable to find locks',
+            };
+        }
+    }
+    async getCreatedBy(createdBy) {
+        let data = await this.lockService.getByCreatedBy(createdBy);
+        if (data.length > 0) {
+            return {
+                success: true,
+                message: 'locks successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find locks',
+                error: 'unable to find locks',
+            };
+        }
+    }
+    async findAll() {
+        let data = await this.lockService.getall();
+        if (data.length > 0) {
+            return {
+                success: true,
+                message: 'locks successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find locks',
+                error: 'unable to find locks',
+            };
         }
     }
 };
@@ -71,6 +125,26 @@ __decorate([
     __metadata("design:paramtypes", [new_lock_dto_1.NewLockDTO]),
     __metadata("design:returntype", Promise)
 ], LockController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)('/getByLockId/:lockId'),
+    __param(0, (0, common_1.Param)('lockId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], LockController.prototype, "getByLockId", null);
+__decorate([
+    (0, common_1.Get)('/createdBy/:createdBy'),
+    __param(0, (0, common_1.Param)('createdBy')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], LockController.prototype, "getCreatedBy", null);
+__decorate([
+    (0, common_1.Get)('getall'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], LockController.prototype, "findAll", null);
 LockController = __decorate([
     (0, common_1.Controller)('lock'),
     __metadata("design:paramtypes", [lock_service_1.LockService, axios_1.HttpService])

@@ -25,6 +25,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true, type: Object }),
     __metadata("design:type", Object)
 ], Lock.prototype, "lockData", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true, default: false }),
+    __metadata("design:type", Boolean)
+], Lock.prototype, "delete", void 0);
 Lock = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

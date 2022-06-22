@@ -4,5 +4,7 @@ export declare class LockService {
     private readonly lockModel;
     constructor(lockModel: Model<LockDocument>);
     create(lock: object): Promise<any>;
-    getById(id: string): Promise<LockDocument | null>;
+    getByLockId(id: string): Promise<LockDocument | null>;
+    getByCreatedBy(createdBy: string): Promise<any>;
+    getall(): Promise<any>;
 }

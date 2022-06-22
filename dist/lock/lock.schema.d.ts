@@ -5,5 +5,6 @@ export declare class Lock {
     createdBy: string;
     lockId: string;
     lockData: object;
+    delete: Boolean;
 }
 export declare const LockSchema: import("mongoose").Schema<Document<Lock, any, any>, import("mongoose").Model<Document<Lock, any, any>, any, any, any>, any, any>;
