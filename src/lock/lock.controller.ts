@@ -158,7 +158,8 @@ export class LockController {
         if(data.success){   
              return this.lockService.delete(lock._id).then((res)=>{
                 console.log('res', res);
-                if(res !== null && res._id) return {sucess: true, message : 'lock successfully deleted', error : '', data : res}
+                if(res === null)  return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
+                if(res && res._id) return {sucess: true, message : 'lock successfully deleted', error : '', data : res};
                 else return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
              })
                   
