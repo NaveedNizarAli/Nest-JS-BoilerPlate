@@ -17,7 +17,7 @@ let LockModule = class LockModule {
 };
 LockModule = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Booking', schema: lock_schema_1.LockSchema }])],
+        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Lock', schema: lock_schema_1.LockSchema }])],
         controllers: [lock_controller_1.LockController],
         providers: [lock_service_1.LockService],
         exports: [lock_service_1.LockService],

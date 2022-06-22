@@ -30,22 +30,29 @@ let UserController = class UserController {
     }
     register(user) {
         let userData = Object.assign({}, user);
-        console.log('body', user);
         var usernameHash = crypto.createHash('md5').update(userData.username).digest('hex');
         var passwordHash = crypto.createHash('md5').update(userData.password).digest('hex');
         userData = Object.assign(Object.assign({}, userData), { username: usernameHash, password: passwordHash });
+        function reverseString(str) {
+            var splitString = str.split("");
+            var reverseArray = splitString.reverse();
+            var joinArray = reverseArray.join("");
+            return joinArray;
+        }
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
         params.append('clientSecret', enterpassAppIds_1.EnterPassConfig.clientSecret);
         params.append('date', user.date);
-        params.append('username', usernameHash);
+        params.append('username', reverseString(usernameHash));
         params.append('password', passwordHash);
         const config = {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
+        console.log('params', params);
         let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
+            console.log('response signup', response.data);
             if (response) {
                 if (!response.data.errcode) {
                     return this.userService.findByUsername(user.username).then((userResponse) => {
@@ -85,6 +92,7 @@ let UserController = class UserController {
         params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
         params.append('password', passwordHash);
         return this.userService.findByUsername(user.username).then((res) => {
+            console.log('res', res);
             if (res && res._id) {
                 params.append('username', res.ttLockHash);
                 const config = {
@@ -95,6 +103,7 @@ let UserController = class UserController {
                 return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
                     if (!response.data.errcode) {
                         if (response.data.access_token) {
+                            console.log('response', response.data);
                             let user = { uid: response.data.uid,
                                 openid: response.data.openid,
                                 scope: response.data.scope,
@@ -119,7 +128,6 @@ let UserController = class UserController {
                 return { success: false, error: 'unable to logged in', message: 'unable to logged in' };
             }
         }).catch((err) => {
-            console.log('err', err);
             return err;
         });
     }
@@ -136,7 +144,6 @@ let UserController = class UserController {
         };
         return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
-                console.log('response', response.data);
                 if (response.data.access_token) {
                     let user = {
                         refresh_token: response.data.refresh_token,
@@ -158,9 +165,7 @@ let UserController = class UserController {
         }));
     }
     async update(id, user) {
-        console.log('user', user);
         let data = await this.userService.update(id, user);
-        console.log('data', data);
         if (data._id) {
             return {
                 success: true,

@@ -20,13 +20,6 @@ let UserService = class UserService {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    _getUserDetails(user) {
-        return {
-            id: user._id,
-            username: user.username,
-            date: user.date,
-        };
-    }
     async findByUsername(username) {
         return this.userModel.findOne({ username }).exec();
     }
@@ -34,7 +27,6 @@ let UserService = class UserService {
         const user = await this.userModel.findById(id).exec();
         if (!user)
             return null;
-        return this._getUserDetails(user);
     }
     async find() {
         return this.userModel.find({}).exec();

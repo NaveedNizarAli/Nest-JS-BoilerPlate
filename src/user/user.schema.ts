@@ -21,7 +21,7 @@ export class User {
   @Prop({ required: true })
   password: string;
   @Prop({ required: true })
-  date: number;
+  date: string;
   @Prop({})
   uid: number;
   @Prop({})

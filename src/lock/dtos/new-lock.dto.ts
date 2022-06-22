@@ -7,13 +7,9 @@ export class NewLockDTO {
   createdBy: string;
 
   @IsNotEmpty()
-  @IsString()
-  lockName: string;
+  lockData: string;
 
   @IsNotEmpty()
   @IsString()
-  lockType: string;
-
-  @IsNotEmpty()
-  lockDetail: string;
+  accessToken: string;
 }

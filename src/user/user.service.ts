@@ -13,13 +13,13 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
   ) {}
 
-  _getUserDetails(user: UserDocument): UserDetails {
-    return {
-      id       : user._id,
-      username : user.username,
-      date     : user.date,
-    };
-  }
+  // _getUserDetails(user: UserDocument): UserDetails {
+  //   return {
+  //     id       : user._id,
+  //     username : user.username,
+  //     date     : user.date,
+  //   };
+  // }
 
   async findByUsername(username: string): Promise<UserDocument | null> {
     return this.userModel.findOne({ username }).exec();
@@ -28,7 +28,7 @@ export class UserService {
   async findById(id: string): Promise<UserDetails | null> {
     const user = await this.userModel.findById(id).exec();
     if (!user) return null;
-    return this._getUserDetails(user);
+    // return this._getUserDetails(user);
   }
 
   async find(): Promise<User[]> {

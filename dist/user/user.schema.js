@@ -37,7 +37,7 @@ __decorate([
 ], User.prototype, "password", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", Number)
+    __metadata("design:type", String)
 ], User.prototype, "date", void 0);
 __decorate([
     (0, mongoose_1.Prop)({}),

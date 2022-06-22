@@ -10,12 +10,10 @@ export type LockDocument = Lock & Document;
 export class Lock {
   @Prop({ required: true })
   createdBy : string;
-  @Prop({ required: true, unique: true })
-  lockName : string;
   @Prop({ required: true })
-  lockTyoe : string;
-  @Prop({ required: true })
-  lockDetail : string;
+  lockId : string;
+  @Prop({required : true, type: Object })
+  lockData : object;
 }
 
 export const LockSchema = SchemaFactory.createForClass(Lock);

@@ -20,19 +20,24 @@ export class UserController {
   register(@Body() user: NewEnterPassUserDTO): Observable<AxiosResponse<any>>  {
    
     let userData = {...user};
-    console.log('body', user);
     
     var usernameHash = crypto.createHash('md5').update(userData.username).digest('hex');
     var passwordHash = crypto.createHash('md5').update(userData.password).digest('hex');
 
     userData = {...userData, username: usernameHash, password: passwordHash}
 
+    function reverseString(str) {
+      var splitString = str.split(""); // var splitString = "hello".split("");
+      var reverseArray = splitString.reverse(); // var reverseArray = ["h", "e", "l", "l", "o"].reverse();
+      var joinArray = reverseArray.join(""); // var joinArray = ["o", "l", "l", "e", "h"].join("");
+      return joinArray; // "olleh
+    }
+
       const params = new URLSearchParams();
-     
       params.append('clientId', EnterPassConfig.clientId);
       params.append('clientSecret', EnterPassConfig.clientSecret);
       params.append('date', user.date);
-      params.append('username', usernameHash);
+      params.append('username', reverseString(usernameHash));
       params.append('password', passwordHash);
       
    
@@ -42,8 +47,10 @@ export class UserController {
       }
     }
 
+    console.log('params',params);
     
     let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params , config).pipe( map(response => {
+      console.log('response signup', response.data)
       if(response) {
         if(!response.data.errcode) {
           return this.userService.findByUsername(user.username).then((userResponse)=>{
@@ -90,8 +97,10 @@ export class UserController {
       params.append('client_id', EnterPassConfig.clientId);
       params.append('client_secret', EnterPassConfig.clientSecret);
       params.append('password', passwordHash);
-      
+
+    
       return this.userService.findByUsername(user.username).then((res)=>{
+        console.log('res', res);
         if(res && res._id){
           params.append('username', res.ttLockHash);
              
@@ -100,35 +109,38 @@ export class UserController {
                'Content-Type': 'application/x-www-form-urlencoded'
              }
            }
+
        
            return this.httpService.post('https://api.ttlock.com/oauth2/token', params , config).pipe( map(response => {
-             if(!response.data.errcode) {
+              if(!response.data.errcode) {
                if(response.data.access_token) {
-                     let user =  {   uid           : response.data.uid, 
-                                     openid        : response.data.openid,
-                                     scope         : response.data.scope,
-                                     refresh_token : response.data.refresh_token,
-                                     access_token  : response.data.token_type + ' ' +response.data.access_token,
-                                 };
-                     return this.userService.update(res._id, user).then((res)=>{
-                         return {
-                           success : true,
-                           message : 'user successfully logged in',
-                           data    : res
-                         };
-                     });
+                  console.log('response', response.data);
+                        let user =  {   uid           : response.data.uid, 
+                                        openid        : response.data.openid,
+                                        scope         : response.data.scope,
+                                        refresh_token : response.data.refresh_token,
+                                        access_token  : response.data.token_type + ' ' +response.data.access_token,
+                                    };
+
+                          return this.userService.update(res._id, user).then((res)=>{
+                              return {
+                                success : true,
+                                message : 'user successfully logged in',
+                                data    : res
+                              };
+                          });
+
                    }
-               }
-               else{
+              }
+              else{
                  return {success: false, error: response.data.errmsg, message :response.data.errmsg }
-               }
+              }
            }));
         }
         else {
           return {success: false, error: 'unable to logged in', message: 'unable to logged in'}
         }
       }).catch((err)=>{
-        console.log('err', err);
         return err
       })
     
@@ -154,7 +166,6 @@ export class UserController {
 
     return this.httpService.post('https://api.ttlock.com/oauth2/token', params , config).pipe( map(response => {
       if(response) {
-        console.log('response', response.data);
         if(response.data.access_token) {
           let user =  {  
                           refresh_token : response.data.refresh_token,
@@ -179,9 +190,7 @@ export class UserController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() user: UpdateUserEnterPass) {
-    console.log('user',user);
     let data =  await this.userService.update(id, user);
-    console.log('data', data);
     if(data._id){
       return {
         success : true,

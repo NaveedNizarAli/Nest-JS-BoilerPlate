@@ -18,17 +18,13 @@ __decorate([
     __metadata("design:type", String)
 ], Lock.prototype, "createdBy", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, unique: true }),
-    __metadata("design:type", String)
-], Lock.prototype, "lockName", void 0);
-__decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Lock.prototype, "lockTyoe", void 0);
+], Lock.prototype, "lockId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Lock.prototype, "lockDetail", void 0);
+    (0, mongoose_1.Prop)({ required: true, type: Object }),
+    __metadata("design:type", Object)
+], Lock.prototype, "lockData", void 0);
 Lock = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,

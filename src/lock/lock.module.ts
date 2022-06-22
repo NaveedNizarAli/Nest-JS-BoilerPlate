@@ -6,7 +6,7 @@ import { LockSchema } from './lock.schema';
 import { LockService } from './lock.service';
 
 @Module({
-  imports: [HttpModule,MongooseModule.forFeature([{ name: 'Booking', schema: LockSchema }])],
+  imports: [HttpModule,MongooseModule.forFeature([{ name: 'Lock', schema: LockSchema }])],
   controllers: [LockController],
   providers: [LockService],
   exports: [LockService],

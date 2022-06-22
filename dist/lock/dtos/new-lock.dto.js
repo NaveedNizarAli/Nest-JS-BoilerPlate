@@ -20,17 +20,12 @@ __decorate([
 ], NewLockDTO.prototype, "createdBy", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], NewLockDTO.prototype, "lockName", void 0);
+], NewLockDTO.prototype, "lockData", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], NewLockDTO.prototype, "lockType", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], NewLockDTO.prototype, "lockDetail", void 0);
+], NewLockDTO.prototype, "accessToken", void 0);
 exports.NewLockDTO = NewLockDTO;
 //# sourceMappingURL=new-lock.dto.js.map

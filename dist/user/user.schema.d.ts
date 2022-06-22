@@ -7,7 +7,7 @@ export declare class User {
     username: string;
     fullName: string;
     password: string;
-    date: number;
+    date: string;
     uid: number;
     locationName: string;
     longitude: number;
