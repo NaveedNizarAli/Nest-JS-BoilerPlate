@@ -55,7 +55,7 @@ let LockController = class LockController {
             let result = await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + data.lockId + '&date=' + new Date().valueOf())).then(response => {
                 console.log('response', response);
                 if (response && response.data.lockId) {
-                    return this.lockService.create({ lockData: Object.assign({}, response.data), createdBy: lock.createdBy, lockId: response.data.lockId }).then((res) => {
+                    return this.lockService.create({ lockData: Object.assign({}, response.data), createdBy: lock.createdBy, lockId: response.data.lockId, lockDataString: lock.lockData }).then((res) => {
                         return { success: true, message: 'lock initialized successfully', error: '', data: res };
                     });
                 }

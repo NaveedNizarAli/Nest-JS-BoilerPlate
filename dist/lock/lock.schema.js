@@ -26,6 +26,10 @@ __decorate([
     __metadata("design:type", Object)
 ], Lock.prototype, "lockData", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Lock.prototype, "lockDataString", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], Lock.prototype, "delete", void 0);
