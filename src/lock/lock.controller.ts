@@ -52,7 +52,7 @@ export class LockController {
                 console.log('response', response);  
                 if(response && response.data.lockId) {
                         return this.lockService.create({lockData : {...response.data}, createdBy : lock.createdBy, lockId: response.data.lockId}).then((res)=>{
-                            return {sucess: true, message : 'lock initialized successfully', error : '', data : res}
+                            return {success: true, message : 'lock initialized successfully', error : '', data : res}
                         })    
                     }
                 })
@@ -147,7 +147,8 @@ export class LockController {
 
 
         let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/delete', params , config)).then( response =>{
-           if(response){
+            console.log('res', response);
+            if(response){
                 if(response.data.errcode === 0) return {success: true, error: '', message : 'lock deleted', data: lock.lockId};
                 else return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
            }
@@ -159,7 +160,7 @@ export class LockController {
              return this.lockService.delete(lock._id).then((res)=>{
                 console.log('res', res);
                 if(res === null)  return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
-                if(res && res._id) return {sucess: true, message : 'lock successfully deleted', error : '', data : res};
+                if(res && res._id) return {success: true, message : 'lock successfully deleted', error : '', data : res};
                 else return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
              })
                   
