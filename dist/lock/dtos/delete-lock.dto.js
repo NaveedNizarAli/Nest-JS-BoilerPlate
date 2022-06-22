@@ -9,28 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NewLockDTO = void 0;
+exports.DeleteLockDTO = void 0;
 const class_validator_1 = require("class-validator");
-class NewLockDTO {
+class DeleteLockDTO {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], NewLockDTO.prototype, "createdBy", void 0);
+], DeleteLockDTO.prototype, "accessToken", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], NewLockDTO.prototype, "lockData", void 0);
+], DeleteLockDTO.prototype, "lockId", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], NewLockDTO.prototype, "accessToken", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], NewLockDTO.prototype, "lockName", void 0);
-exports.NewLockDTO = NewLockDTO;
-//# sourceMappingURL=new-lock.dto.js.map
+], DeleteLockDTO.prototype, "_id", void 0);
+exports.DeleteLockDTO = DeleteLockDTO;
+//# sourceMappingURL=delete-lock.dto.js.map

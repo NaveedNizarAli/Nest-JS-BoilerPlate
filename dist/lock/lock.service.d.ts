@@ -7,4 +7,6 @@ export declare class LockService {
     getByLockId(id: string): Promise<LockDocument | null>;
     getByCreatedBy(createdBy: string): Promise<any>;
     getall(): Promise<any>;
+    update(id: string, lock: Object): Promise<LockDocument>;
+    delete(id: string): Promise<any>;
 }

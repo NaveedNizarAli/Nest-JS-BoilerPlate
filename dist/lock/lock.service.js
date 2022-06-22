@@ -26,7 +26,7 @@ let LockService = class LockService {
         return newLock.save();
     }
     async getByLockId(id) {
-        return await this.lockModel.findOne({ lockId: id }).exec();
+        return await this.lockModel.findOne({ lockId: id, delete: false }).exec();
     }
     async getByCreatedBy(createdBy) {
         return await this.lockModel.find({
@@ -42,6 +42,12 @@ let LockService = class LockService {
                 dataArray.push(element);
         }
         return dataArray;
+    }
+    async update(id, lock) {
+        return await this.lockModel.findByIdAndUpdate(id, lock, { new: true });
+    }
+    async delete(id) {
+        return await this.lockModel.findByIdAndDelete(id).exec();
     }
 };
 LockService = __decorate([

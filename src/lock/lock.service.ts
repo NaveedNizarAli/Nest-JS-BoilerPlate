@@ -19,7 +19,7 @@ export class LockService {
     }
 
     async getByLockId(id: string,) : Promise<LockDocument | null> {
-        return await this.lockModel.findOne({lockId : id}).exec();
+        return await this.lockModel.findOne({lockId : id, delete: false}).exec();
     }
 
     async getByCreatedBy(createdBy: string,) : Promise<any> {
@@ -38,5 +38,14 @@ export class LockService {
         }
 
         return dataArray;
+    }
+
+
+    async update(id: string, lock: Object): Promise<LockDocument> {
+        return await this.lockModel.findByIdAndUpdate(id, lock, {new: true})
+    }
+
+    async delete(id: string): Promise<any> {
+        return await this.lockModel.findByIdAndDelete(id).exec();
     }
 }

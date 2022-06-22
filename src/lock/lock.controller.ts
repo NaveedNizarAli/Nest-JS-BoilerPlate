@@ -3,6 +3,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
+import { DeleteLockDTO } from './dtos/delete-lock.dto';
 import { NewLockDTO } from './dtos/new-lock.dto';
 import { LockService } from './lock.service';
 
@@ -12,7 +13,6 @@ export class LockController {
 
     @Post('create')
     async create(@Body() lock: NewLockDTO): Promise<any> {
-        let lockData = {...lock};  
 
         const params = new URLSearchParams();
         params.append('clientId',  EnterPassConfig.clientId);
@@ -21,6 +21,7 @@ export class LockController {
 
         params.append('accessToken', access_token);
         params.append('lockData', lock.lockData);
+        params.append('lockAlias', lock.lockName);
         params.append('date', new Date().valueOf().toString());
 
         const config = {
@@ -122,6 +123,52 @@ export class LockController {
                 error   : 'unable to find locks',
             }
         }
+    }
+
+
+    @Post('delete')
+    async delete(@Body() lock: DeleteLockDTO): Promise<any> {
+
+        const params = new URLSearchParams();
+        params.append('clientId',  EnterPassConfig.clientId);
+
+        let access_token = lock.accessToken.split(' ')[1]
+
+        params.append('accessToken', access_token);
+        params.append('lockId', lock.lockId);
+        params.append('date', new Date().valueOf().toString());
+
+        const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+
+
+
+        let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/delete', params , config)).then( response =>{
+           if(response){
+                if(response.data.errcode === 0) return {success: true, error: '', message : 'lock deleted', data: lock.lockId};
+                else return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
+           }
+        });
+
+        
+
+        if(data.success){   
+             return this.lockService.delete(lock._id).then((res)=>{
+                console.log('res', res);
+                if(res._id) return {sucess: true, message : 'lock successfully deleted', error : '', data : res}
+                else return {success: false, error: 'unable to delete lock ', message : 'unable to delete lock', data: ''};
+             })
+                  
+        }
+        else {
+            return data;
+        }
+        
+
+
     }
 
 }

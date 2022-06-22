@@ -12,4 +12,8 @@ export class NewLockDTO {
   @IsNotEmpty()
   @IsString()
   accessToken: string;
+
+  @IsNotEmpty()
+  @IsString()
+  lockName: string;
 }
