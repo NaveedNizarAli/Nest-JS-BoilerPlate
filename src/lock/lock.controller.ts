@@ -16,7 +16,10 @@ export class LockController {
 
         const params = new URLSearchParams();
         params.append('clientId',  EnterPassConfig.clientId);
-        params.append('accessToken', lock.accessToken);
+
+        let access_token = lock.accessToken.split(' ')[1]
+
+        params.append('accessToken', access_token);
         params.append('lockData', lock.lockData);
         params.append('date', new Date().valueOf().toString());
 
