@@ -4,4 +4,7 @@ export declare class CreateBookingDTO {
     endDate: Number;
     contactId: string;
     lockId: string;
+    enterpassLockId: string;
+    accessToken: string;
+    contactName: string;
 }

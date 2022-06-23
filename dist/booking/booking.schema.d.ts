@@ -7,6 +7,9 @@ export declare class Booking {
     endDate: Number;
     lockId: string;
     contactId: string;
+    contactName: string;
+    keyboardPwdId: string;
+    keyboardPwd: string;
     delete: Boolean;
     created: Number;
     updated: Number;

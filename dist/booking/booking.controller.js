@@ -13,28 +13,68 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookingController = void 0;
+const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
+const rxjs_1 = require("rxjs");
+const enterpassAppIds_1 = require("../enums/enterpassAppIds");
 const booking_service_1 = require("./booking.service");
 const create_booking_dto_1 = require("./dtos/create-booking.dto");
 let BookingController = class BookingController {
-    constructor(bookingService) {
+    constructor(bookingService, httpService) {
         this.bookingService = bookingService;
+        this.httpService = httpService;
     }
     async create(booking) {
-        let data = await this.bookingService.create(booking);
-        if (data._id) {
-            return {
-                success: true,
-                message: 'booking successfully created',
-                data: data
-            };
-        }
-        else {
+        const params = new URLSearchParams();
+        params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
+        let access_token = booking.accessToken.split(' ')[1];
+        params.append('accessToken', access_token);
+        params.append('lockId', booking.enterpassLockId);
+        params.append('startDate', booking.startDate.toString());
+        params.append('endDate', booking.endDate.toString());
+        params.append('keyboardPwdType', '2');
+        params.append('keyboardPwdName', booking.contactName);
+        params.append('date', new Date().valueOf().toString());
+        delete booking.accessToken;
+        delete booking.enterpassLockId;
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        console.log('params', params);
+        let enterpassreult = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/keyboardPwd/get', params, config)).then(response => {
+            console.log('response', response.data);
+            if (response.data && response.data.keyboardPwdId) {
+                return { success: true, message: 'booking successfully created', data: response.data };
+            }
             return {
                 success: false,
                 message: 'booking unable to create',
                 error: 'booking unable to create',
+                data: ''
             };
+        });
+        if (enterpassreult.success) {
+            booking['keyboardPwdId'] = enterpassreult.data.keyboardPwdId;
+            booking['keyboardPwd'] = enterpassreult.data.keyboardPwd;
+            let data = await this.bookingService.create(booking);
+            if (data._id) {
+                return {
+                    success: true,
+                    error: '',
+                    message: 'booking successfully created',
+                    data: data
+                };
+            }
+            else {
+                return {
+                    success: false,
+                    message: 'booking unable to create',
+                    error: 'booking unable to create',
+                    data: ''
+                };
+            }
         }
     }
     async findAll() {
@@ -94,7 +134,7 @@ __decorate([
 ], BookingController.prototype, "getCreatedBy", null);
 BookingController = __decorate([
     (0, common_1.Controller)('booking'),
-    __metadata("design:paramtypes", [booking_service_1.BookingService])
+    __metadata("design:paramtypes", [booking_service_1.BookingService, axios_1.HttpService])
 ], BookingController);
 exports.BookingController = BookingController;
 //# sourceMappingURL=booking.controller.js.map

@@ -13,8 +13,7 @@ export class BookingService {
     async create(booking : Object) : Promise<BookingDocument> {
             console.log('booking', booking);
             const newBooking = new this.bookingModel(booking);
-            return newBooking.save();
-        
+            return newBooking.save();   
     }
 
     async getall() : Promise<any> {

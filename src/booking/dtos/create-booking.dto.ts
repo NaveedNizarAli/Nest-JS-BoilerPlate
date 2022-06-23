@@ -21,7 +21,20 @@ export class CreateBookingDTO {
 
   @IsNotEmpty()
   @IsString()
-  @IsOptional()
   lockId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  enterpassLockId: string;
+
+  @IsNotEmpty()
+  @IsString()
+  accessToken : string;
+
+  @IsNotEmpty()
+  @IsString()
+  contactName : string;
+
 
 }
