@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { BookingDocument } from 'src/booking/booking.schema';
 import { LockDocument } from './lock.schema';
 
 @Injectable()
 export class LockService {
     constructor(
         @InjectModel('Lock') private readonly lockModel: Model<LockDocument>,
+        @InjectModel('Booking') private readonly bookingModel: Model<BookingDocument>
     ) {}
 
 
@@ -46,6 +48,13 @@ export class LockService {
     }
 
     async delete(id: string): Promise<any> {
-        return await this.lockModel.findByIdAndDelete(id).exec();
+        let lock = await this.lockModel.findByIdAndDelete(id).exec();
+        
+        let data = await this.bookingModel.find({lockId: id}).exec();
+        for (const item of data) {
+            await this.bookingModel.findByIdAndDelete(item._id).exec();
+        }
+
+        return lock;
     }
 }

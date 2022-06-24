@@ -10,6 +10,7 @@ exports.LockModule = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const booking_schema_1 = require("../booking/booking.schema");
 const lock_controller_1 = require("./lock.controller");
 const lock_schema_1 = require("./lock.schema");
 const lock_service_1 = require("./lock.service");
@@ -17,7 +18,7 @@ let LockModule = class LockModule {
 };
 LockModule = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Lock', schema: lock_schema_1.LockSchema }])],
+        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Lock', schema: lock_schema_1.LockSchema }, { name: 'Booking', schema: booking_schema_1.BookingSchema }])],
         controllers: [lock_controller_1.LockController],
         providers: [lock_service_1.LockService],
         exports: [lock_service_1.LockService],

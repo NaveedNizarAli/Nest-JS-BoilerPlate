@@ -17,8 +17,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let LockService = class LockService {
-    constructor(lockModel) {
+    constructor(lockModel, bookingModel) {
         this.lockModel = lockModel;
+        this.bookingModel = bookingModel;
     }
     async create(lock) {
         console.log('lock', lock);
@@ -47,13 +48,20 @@ let LockService = class LockService {
         return await this.lockModel.findByIdAndUpdate(id, lock, { new: true });
     }
     async delete(id) {
-        return await this.lockModel.findByIdAndDelete(id).exec();
+        let lock = await this.lockModel.findByIdAndDelete(id).exec();
+        let data = await this.bookingModel.find({ lockId: id }).exec();
+        for (const item of data) {
+            await this.bookingModel.findByIdAndDelete(item._id).exec();
+        }
+        return lock;
     }
 };
 LockService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('Lock')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)('Booking')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], LockService);
 exports.LockService = LockService;
 //# sourceMappingURL=lock.service.js.map

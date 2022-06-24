@@ -1,8 +1,10 @@
 import { Model } from 'mongoose';
+import { BookingDocument } from 'src/booking/booking.schema';
 import { LockDocument } from './lock.schema';
 export declare class LockService {
     private readonly lockModel;
-    constructor(lockModel: Model<LockDocument>);
+    private readonly bookingModel;
+    constructor(lockModel: Model<LockDocument>, bookingModel: Model<BookingDocument>);
     create(lock: object): Promise<any>;
     getByLockId(id: string): Promise<LockDocument | null>;
     getByCreatedBy(createdBy: string): Promise<any>;
