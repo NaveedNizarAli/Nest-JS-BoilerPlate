@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { DeleteLockDTO } from './dtos/delete-lock.dto';
+import { GetRecordsDTO } from './dtos/get-records.dto';
 import { NewLockDTO } from './dtos/new-lock.dto';
 import { LockService } from './lock.service';
 export declare class LockController {
@@ -40,5 +41,6 @@ export declare class LockController {
         error: string;
         data?: undefined;
     }>;
+    getRecords(lock: GetRecordsDTO): Promise<any>;
     delete(lock: DeleteLockDTO): Promise<any>;
 }

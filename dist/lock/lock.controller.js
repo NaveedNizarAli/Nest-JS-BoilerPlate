@@ -18,6 +18,7 @@ const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 const enterpassAppIds_1 = require("../enums/enterpassAppIds");
 const delete_lock_dto_1 = require("./dtos/delete-lock.dto");
+const get_records_dto_1 = require("./dtos/get-records.dto");
 const new_lock_dto_1 = require("./dtos/new-lock.dto");
 const lock_service_1 = require("./lock.service");
 let LockController = class LockController {
@@ -118,6 +119,53 @@ let LockController = class LockController {
             };
         }
     }
+    async getRecords(lock) {
+        const params = new URLSearchParams();
+        params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
+        let access_token = lock.accessToken.split(' ')[1];
+        params.append('accessToken', access_token);
+        if (lock.records)
+            params.append('records', lock.records);
+        params.append('lockId', lock.lockId);
+        params.append('date', new Date().valueOf().toString());
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        let data;
+        if (lock.records) {
+            data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lockRecord/upload', params, config)).then((response) => {
+                console.log('response', response);
+                if (response.data && response.data.errcode === 0) {
+                    return {
+                        success: true,
+                        message: 'data uploaded successfully',
+                        error: 'data uploaded successfully',
+                    };
+                }
+            });
+        }
+        if ((data && data.success) || !lock.records) {
+            return await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lockRecord/list?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + lock.lockId + '&date=' + new Date().valueOf() + '&pageNo=1&pageSize=100')).then(response => {
+                if (response.data && response.data.list) {
+                    return {
+                        success: true,
+                        message: 'data found successfully',
+                        error: 'data found successfully',
+                        data: response.data
+                    };
+                }
+                else {
+                    return {
+                        success: false,
+                        message: 'unable to upload data',
+                        error: 'unable to upload data',
+                    };
+                }
+            });
+        }
+    }
     async delete(lock) {
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
@@ -182,6 +230,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], LockController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Post)('getlockRecords'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [get_records_dto_1.GetRecordsDTO]),
+    __metadata("design:returntype", Promise)
+], LockController.prototype, "getRecords", null);
 __decorate([
     (0, common_1.Post)('delete'),
     __param(0, (0, common_1.Body)()),

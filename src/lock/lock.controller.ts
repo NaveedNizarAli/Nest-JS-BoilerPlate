@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import { firstValueFrom, map, Observable } from 'rxjs';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
 import { DeleteLockDTO } from './dtos/delete-lock.dto';
+import { GetRecordsDTO } from './dtos/get-records.dto';
 import { NewLockDTO } from './dtos/new-lock.dto';
 import { LockService } from './lock.service';
 
@@ -123,6 +124,62 @@ export class LockController {
                 error   : 'unable to find locks',
             }
         }
+    }
+
+    @Post('getlockRecords')
+    async getRecords(@Body() lock: GetRecordsDTO): Promise<any> {
+        
+        const params = new URLSearchParams();
+        params.append('clientId',  EnterPassConfig.clientId);
+
+        let access_token = lock.accessToken.split(' ')[1]
+
+        params.append('accessToken', access_token);
+        if(lock.records) params.append('records', lock.records);
+        params.append('lockId', lock.lockId);
+        params.append('date', new Date().valueOf().toString());
+
+        const config = {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }
+
+        let data;
+        if(lock.records){
+            data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lockRecord/upload', params , config)).then((response)=>{
+                console.log('response', response);
+                if(response.data && response.data.errcode === 0 ) {
+                    return {
+                        success: true,
+                        message : 'data uploaded successfully',
+                        error : 'data uploaded successfully',
+                    }
+                }
+            })
+        }
+
+        if((data && data.success) || !lock.records) {
+            return await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lockRecord/list?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+lock.lockId +'&date='+ new Date().valueOf() + '&pageNo=1&pageSize=100')).then( response =>{
+                if(response.data && response.data.list){
+
+                    return {
+                        success: true,
+                        message : 'data found successfully',
+                        error : 'data found successfully',
+                        data : response.data
+                    }
+                }
+                else {
+                    return {
+                        success: false,
+                        message : 'unable to upload data',
+                        error : 'unable to upload data',
+                    }
+                }
+            })
+        }
+
     }
 
 
