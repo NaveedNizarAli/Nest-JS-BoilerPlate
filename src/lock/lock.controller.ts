@@ -126,6 +126,8 @@ export class LockController {
         }
     }
 
+
+
     @Post('getlockRecords')
     async getRecords(@Body() lock: GetRecordsDTO): Promise<any> {
         
@@ -145,6 +147,87 @@ export class LockController {
             }
         }
 
+        const recordType ={
+            1 : "unlock by app",
+
+            4 : "unlock by passcode",
+
+            5 : "Rise the lock (for parking lock)",
+
+            6 : "Lower the lock (for parking lock)" ,
+
+            7 : "unlock by IC card",
+
+            8 : "unlock by fingerprint",
+
+            9 : "unlock by wrist strap",
+
+            10 : "unlock by Mechanical key",
+
+            11 : "lock by app",
+
+            12 : "unlock by gateway",
+
+            29 : "apply some force on the Lock",
+
+            30 : "Door sensor closed",
+
+            31 : "Door sensor open",
+
+            32 : "open from inside",
+
+            33 : "lock by fingerprint",
+
+            34 : "lock by passcode",
+
+            35 : "lock by IC card",
+
+            36 : "lock by Mechanical key",
+
+            37 : "Remote Control",
+
+            42 : "received new local mail",
+
+            43 : "received new other cities' mail",
+
+            44 : "Tamper alert",
+
+            45 : "Auto Lock",
+
+            46 : "unlock by unlock key",
+
+            47 : "lock by lock key",
+
+            48 : "System locked ( Caused by, for example: Using INVALID Passcode/Fingerprint/Card several times)",
+
+            49 : "unlock by hotel card",
+
+            50 : "Unlocked due to the high temperature",
+
+            52 : "Dead lock with APP",
+
+            53 : "Dead lock with passcode",
+
+            54 : "The car left (for parking lock)",
+
+            55 : "unlock with key fob",
+
+            57 : "Unlock with QR code success",
+
+            58 : "Unlock with QR code failed, it's expired",
+
+            59 : "Double locked",
+
+            60 : "Cancel double lock",
+
+            61 : "Lock with QR code success",
+
+            62 : "Lock with QR code failed, the lock is double locked",
+
+            63 : "Auto unlock at passage mode"
+        }
+
+
         let data;
         if(lock.records){
             data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lockRecord/upload', params , config)).then((response)=>{
@@ -162,7 +245,11 @@ export class LockController {
         if((data && data.success) || !lock.records) {
             return await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lockRecord/list?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+lock.lockId +'&date='+ new Date().valueOf() + '&pageNo=1&pageSize=100')).then( response =>{
                 if(response.data && response.data.list){
-
+                    let index = 0;
+                    for (const item of response.data.list) {
+                        if(item.recordType) response.data.list[index].recordType = recordType[response.data.list[index].recordType];
+                        response.data.list[index].id = response.data.list[index].lockDate + response.data.list[index].lockId
+                    }
                     return {
                         success: true,
                         message : 'data found successfully',
