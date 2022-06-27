@@ -248,7 +248,8 @@ export class LockController {
                     let index = 0;
                     for (const item of response.data.list) {
                         if(item.recordType) response.data.list[index].recordTypeString = recordType[response.data.list[index].recordType] || '';
-                        response.data.list[index].objectId = response.data.list[index].lockDate + response.data.list[index].lockId
+                        response.data.list[index].objectId = response.data.list[index].lockDate.toString() + response.data.list[index].lockId.toString();
+                        index = index + 1;
                     }
                     return {
                         success: true,
