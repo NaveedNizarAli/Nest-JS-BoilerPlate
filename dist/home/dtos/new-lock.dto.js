@@ -29,8 +29,18 @@ __decorate([
 ], NewHomeDTO.prototype, "homeName", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], NewHomeDTO.prototype, "lat", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], NewHomeDTO.prototype, "lng", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
-    __metadata("design:type", Array)
+    __metadata("design:type", String)
 ], NewHomeDTO.prototype, "homeAddress", void 0);
 exports.NewHomeDTO = NewHomeDTO;
 //# sourceMappingURL=new-lock.dto.js.map

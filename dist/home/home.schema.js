@@ -27,6 +27,14 @@ __decorate([
 ], Home.prototype, "homeName", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Home.prototype, "lat", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Home.prototype, "lng", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Home.prototype, "homeAddress", void 0);
 __decorate([

@@ -5,6 +5,8 @@ export declare class Home {
     createdBy: string;
     homeImages: Array<string>;
     homeName: string;
+    lat: Number;
+    lng: Number;
     homeAddress: string;
     delete: Boolean;
     created: Number;
