@@ -2,12 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BookingDocument } from './booking.schema';
 import { Model } from 'mongoose';
+import { LockDocument } from 'src/lock/lock.schema';
 
 
 @Injectable()
 export class BookingService {
     constructor(
         @InjectModel('Booking') private readonly bookingModel: Model<BookingDocument>,
+        @InjectModel('Lock') private readonly lockModel: Model<LockDocument>,
     ) {}
 
     async create(booking : Object) : Promise<BookingDocument> {
@@ -31,6 +33,12 @@ export class BookingService {
     async getByCreatedBy(createdBy: string,) : Promise<any> {
         return await this.bookingModel.find({
             createdBy: createdBy
+        });
+    }
+
+    async getLocks(homeId : string) : Promise<any> { 
+        return await this.lockModel.find({
+            homeId: homeId
         });
     }
 }

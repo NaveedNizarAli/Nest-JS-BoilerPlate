@@ -21,12 +21,7 @@ export class CreateBookingDTO {
 
   @IsNotEmpty()
   @IsString()
-  lockId: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @IsOptional()
-  enterpassLockId: string;
+  homeId: string;
 
   @IsNotEmpty()
   @IsString()

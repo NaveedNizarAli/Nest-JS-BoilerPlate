@@ -5,6 +5,7 @@ export declare class Lock {
     createdBy: string;
     lockId: string;
     lockData: object;
+    homeId: string;
     lockDataString: string;
     delete: Boolean;
     created: Number;

@@ -28,6 +28,10 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
+], Lock.prototype, "homeId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
 ], Lock.prototype, "lockDataString", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),

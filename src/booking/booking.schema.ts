@@ -14,16 +14,12 @@ export class Booking {
   startDate : Number;
   @Prop({ required: true })
   endDate : Number;
-  @Prop({ required: true })
-  lockId : string;
+  @Prop({type: [Object]})
+  lockIds: Array<object>;
   @Prop({ required: true })
   contactId: string;
   @Prop({ required: true })
   contactName: string;
-  @Prop({ required: true })
-  keyboardPwdId: string;
-  @Prop({ required: true })
-  keyboardPwd: string;
   @Prop({ required: true, default: false })
   delete: Boolean;
   @Prop({required : true, default : new Date().valueOf()})

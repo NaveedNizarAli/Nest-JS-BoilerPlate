@@ -12,7 +12,7 @@ export class LockService {
     ) {}
 
 
-    async create(lock : object)  : Promise<any> {
+    async   create(lock : object)  : Promise<any> {
         console.log('lock', lock);
         const newLock = new this.lockModel({
             ...lock

@@ -5,11 +5,9 @@ export declare class Booking {
     createdBy: string;
     startDate: Number;
     endDate: Number;
-    lockId: string;
+    lockIds: Array<object>;
     contactId: string;
     contactName: string;
-    keyboardPwdId: string;
-    keyboardPwd: string;
     delete: Boolean;
     created: Number;
     updated: Number;

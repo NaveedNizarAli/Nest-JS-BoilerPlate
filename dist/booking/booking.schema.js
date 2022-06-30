@@ -26,9 +26,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Booking.prototype, "endDate", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Booking.prototype, "lockId", void 0);
+    (0, mongoose_1.Prop)({ type: [Object] }),
+    __metadata("design:type", Array)
+], Booking.prototype, "lockIds", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
@@ -37,14 +37,6 @@ __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], Booking.prototype, "contactName", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Booking.prototype, "keyboardPwdId", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
-], Booking.prototype, "keyboardPwd", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)

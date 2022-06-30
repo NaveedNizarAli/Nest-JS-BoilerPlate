@@ -1,4 +1,4 @@
-import {  IsNotEmpty, IsString } from 'class-validator';
+import {  IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 export class NewLockDTO {
 
@@ -16,4 +16,8 @@ export class NewLockDTO {
   @IsNotEmpty()
   @IsString()
   lockName: string;
+
+  @IsNotEmpty()
+  @IsString()
+  homeId: string;
 }

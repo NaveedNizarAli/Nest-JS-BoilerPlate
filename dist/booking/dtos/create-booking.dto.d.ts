@@ -3,8 +3,7 @@ export declare class CreateBookingDTO {
     startDate: Number;
     endDate: Number;
     contactId: string;
-    lockId: string;
-    enterpassLockId: string;
+    homeId: string;
     accessToken: string;
     contactName: string;
 }

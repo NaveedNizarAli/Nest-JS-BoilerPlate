@@ -32,5 +32,10 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], NewLockDTO.prototype, "lockName", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], NewLockDTO.prototype, "homeId", void 0);
 exports.NewLockDTO = NewLockDTO;
 //# sourceMappingURL=new-lock.dto.js.map

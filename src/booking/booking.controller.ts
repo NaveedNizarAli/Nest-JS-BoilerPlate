@@ -19,48 +19,83 @@ export class BookingController {
 
         let access_token = booking.accessToken.split(' ')[1]
 
-        params.append('accessToken', access_token);
-        params.append('lockId', booking.enterpassLockId);
-        params.append('startDate', booking.startDate.toString());
-        params.append('endDate', booking.endDate.toString());
-        params.append('keyboardPwdType', '2');
-        params.append('keyboardPwdName', booking.contactName);
-        params.append('date', new Date().valueOf().toString());
-
-        delete booking.accessToken;
-        delete booking.enterpassLockId;
+        let locks = await this.bookingService.getLocks(booking.homeId);
         
-        const config = {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        }
+        if(locks.length > 0){
+            
+            let index = 0;
+            let pwd : number;
+            let successArray = [];
+            for (const item of locks) {
+                if(item._id) {
+                    params.append('accessToken', access_token);
+                    params.append('lockId', item.lockId);
+                    params.append('startDate', booking.startDate.toString());
+                    params.append('endDate', booking.endDate.toString());
+                    params.append('keyboardPwdName', booking.contactName);
+                    params.append('keyboardPwdType', '3');
+                    params.append('date', new Date().valueOf().toString());
+            
+                    delete booking.accessToken;
+                    
+                    const config = {
+                        headers: {
+                          'Content-Type': 'application/x-www-form-urlencoded'
+                        }
+                    }
+        
+                    let url : string;
+                    if(index === 0){ 
+                        url = 'https://api.ttlock.com/v3/keyboardPwd/get'; 
+                        console.log('params', index, params)
+                    } 
+                    else {
+                        url = 'https://api.ttlock.com/v3/keyboardPwd/add'; 
+                        params.append('keyboardPwd', pwd.toString());
+                        params.delete('keyboardPwdType');
+                        console.log('params', index, params)
+                    }
 
-        console.log('params', params);
+                    let enterpassreult = await firstValueFrom(this.httpService.post(url, params , config)).then( response =>{
+                        console.log('response', response.data);
+                        if(index === 0) {pwd = response.data.keyboardPwd}
+                        if(response.data && response.data.keyboardPwdId){
+                            return {success: true, message : 'booking successfully created', data: response.data};
+                        }
+                        return {
+                            success : false,
+                            message : 'booking unable to create',
+                            error   : 'booking unable to create',
+                            data    : ''
+                        }
+                    })
+            
+                    if(enterpassreult.success){
+                        // booking['keyboardPwdId'] = enterpassreult.data.keyboardPwdId;
+                        // booking['keyboardPwd'] = index === 0 ? enterpassreult.data.keyboardPwd : pwd;
+                        
+                        successArray.push({
+                            keyboardPwdId : enterpassreult.data.keyboardPwdId,
+                            keyboardPwd   : index === 0 ? enterpassreult.data.keyboardPwd : pwd,
+                            lockId        : item.lockId,
+                            lockIdObject  : item._id
+                        })
 
-        let enterpassreult = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/keyboardPwd/get', params , config)).then( response =>{
-            console.log('response', response.data);
-            if(response.data && response.data.keyboardPwdId){
-                return {success: true, message : 'booking successfully created', data: response.data};
-            }
-            return {
-                success : false,
-                message : 'booking unable to create',
-                error   : 'booking unable to create',
-                data    : ''
-            }
-        })
 
-        if(enterpassreult.success){
-            booking['keyboardPwdId'] = enterpassreult.data.keyboardPwdId;
-            booking['keyboardPwd'] = enterpassreult.data.keyboardPwd;
+                    }
+
+                    index = index + 1;
+                }          
+            }
+
+            booking['lockIds'] = successArray;
             let data = await this.bookingService.create(booking);
-            if(data._id){
+            if(data._id && index === (successArray.length)) {
                 return {
-                    success : true,
-                    error   : '',
+                    success : false,
                     message : 'booking successfully created',
-                    data    : data
+                    error   : 'booking successfully created',
+                    data    : successArray
                 }
             }
             else{

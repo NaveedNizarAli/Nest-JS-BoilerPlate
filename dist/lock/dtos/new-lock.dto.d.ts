@@ -3,4 +3,5 @@ export declare class NewLockDTO {
     lockData: string;
     accessToken: string;
     lockName: string;
+    homeId: string;
 }

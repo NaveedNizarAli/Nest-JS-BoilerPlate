@@ -17,8 +17,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let BookingService = class BookingService {
-    constructor(bookingModel) {
+    constructor(bookingModel, lockModel) {
         this.bookingModel = bookingModel;
+        this.lockModel = lockModel;
     }
     async create(booking) {
         console.log('booking', booking);
@@ -40,11 +41,18 @@ let BookingService = class BookingService {
             createdBy: createdBy
         });
     }
+    async getLocks(homeId) {
+        return await this.lockModel.find({
+            homeId: homeId
+        });
+    }
 };
 BookingService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('Booking')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)('Lock')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], BookingService);
 exports.BookingService = BookingService;
 //# sourceMappingURL=booking.service.js.map
