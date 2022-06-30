@@ -1,4 +1,4 @@
-import {  IsArray, IsNotEmpty, IsString } from 'class-validator';
+import {  IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class NewHomeDTO {
 
@@ -14,6 +14,15 @@ export class NewHomeDTO {
   homeName: string;
 
   @IsNotEmpty()
+  @IsNumber()
+  lat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  lng: number;
+  
+
+  @IsNotEmpty()
   @IsString()
-  homeAddress: string[];
+  homeAddress: string;
 }

@@ -15,6 +15,10 @@ export class Home {
   @Prop({required : true })
   homeName : string;
   @Prop({required : true })
+  lat : Number;
+  @Prop({required : true })
+  lng : Number;
+  @Prop({required : true })
   homeAddress : string;
   @Prop({ required: true, default: false })
   delete: Boolean;
