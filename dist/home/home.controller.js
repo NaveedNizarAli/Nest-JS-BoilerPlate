@@ -61,7 +61,7 @@ let HomeController = class HomeController {
         if (data.length > 0) {
             return {
                 success: true,
-                message: 'bookings successfully found',
+                message: 'home successfully found',
                 data: data
             };
         }
