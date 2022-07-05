@@ -92,7 +92,7 @@ export class BookingController {
             let data = await this.bookingService.create(booking);
             if(data._id && index === (successArray.length)) {
                 return {
-                    success : false,
+                    success : true,
                     message : 'booking successfully created',
                     error   : 'booking successfully created',
                     data    : successArray
