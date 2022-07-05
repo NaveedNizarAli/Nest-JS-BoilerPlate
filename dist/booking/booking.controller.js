@@ -92,7 +92,7 @@ let BookingController = class BookingController {
                     success: true,
                     message: 'booking successfully created',
                     error: 'booking successfully created',
-                    data: booking
+                    data: Object.assign({}, data)
                 };
             }
             else {
