@@ -87,12 +87,13 @@ let BookingController = class BookingController {
             }
             booking['lockIds'] = successArray;
             let data = await this.bookingService.create(booking);
+            console.log('data', data);
             if (data._id && index === (successArray.length)) {
                 return {
                     success: true,
                     message: 'booking successfully created',
-                    error: 'booking successfully created',
-                    data: Object.assign({}, data)
+                    error: '',
+                    data: data
                 };
             }
             else {
