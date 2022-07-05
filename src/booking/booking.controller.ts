@@ -95,7 +95,7 @@ export class BookingController {
                     success : true,
                     message : 'booking successfully created',
                     error   : 'booking successfully created',
-                    data    : successArray
+                    data    : booking
                 }
             }
             else{
