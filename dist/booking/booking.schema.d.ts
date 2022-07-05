@@ -6,6 +6,7 @@ export declare class Booking {
     startDate: Number;
     endDate: Number;
     lockIds: Array<object>;
+    homeId: string;
     contactId: string;
     contactName: string;
     delete: Boolean;

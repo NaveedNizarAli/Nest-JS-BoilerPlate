@@ -16,6 +16,8 @@ export class Booking {
   endDate : Number;
   @Prop({type: [Object]})
   lockIds: Array<object>;
+  @Prop({required: true })
+  homeId: string;
   @Prop({ required: true })
   contactId: string;
   @Prop({ required: true })
