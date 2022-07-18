@@ -15,6 +15,7 @@ export class LockController {
     @Post('create')
     async create(@Body() lock: NewLockDTO): Promise<any> {
 
+        console.log('lock', lock);
         const params = new URLSearchParams();
         params.append('clientId',  EnterPassConfig.clientId);
 
@@ -32,6 +33,7 @@ export class LockController {
         }
 
 
+        console.log('params', params);
 
         let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params , config)).then( response =>{
            if(response){

@@ -27,6 +27,7 @@ let LockController = class LockController {
         this.httpService = httpService;
     }
     async create(lock) {
+        console.log('lock', lock);
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
         let access_token = lock.accessToken.split(' ')[1];
@@ -39,6 +40,7 @@ let LockController = class LockController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
+        console.log('params', params);
         let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params, config)).then(response => {
             if (response) {
                 return this.lockService.getByLockId(response.data.lockId).then((lockResponse) => {
