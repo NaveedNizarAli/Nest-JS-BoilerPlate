@@ -20,9 +20,12 @@ export class NewHomeDTO {
   @IsNotEmpty()
   @IsNumber()
   lng: number;
-  
 
   @IsNotEmpty()
   @IsString()
   homeAddress: string;
+
+  @IsNotEmpty()
+  @IsString()
+  locationName: string;
 }

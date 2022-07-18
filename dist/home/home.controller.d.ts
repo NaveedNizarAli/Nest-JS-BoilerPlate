@@ -1,5 +1,5 @@
 import { HttpService } from "@nestjs/axios";
-import { NewHomeDTO } from "./dtos/new-lock.dto";
+import { NewHomeDTO } from "./dtos/new-home.dto";
 import { HomeService } from "./home.service";
 export declare class HomeController {
     private homeService;

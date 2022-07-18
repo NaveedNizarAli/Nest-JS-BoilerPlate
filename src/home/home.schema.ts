@@ -20,6 +20,8 @@ export class Home {
   lng : Number;
   @Prop({required : true })
   homeAddress : string;
+  @Prop({required : true })
+  locationName : string;
   @Prop({ required: true, default: false })
   delete: Boolean;
   @Prop({required : true, default : new Date().valueOf()})

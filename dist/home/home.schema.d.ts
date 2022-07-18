@@ -8,6 +8,7 @@ export declare class Home {
     lat: Number;
     lng: Number;
     homeAddress: string;
+    locationName: string;
     delete: Boolean;
     created: Number;
     updated: Number;

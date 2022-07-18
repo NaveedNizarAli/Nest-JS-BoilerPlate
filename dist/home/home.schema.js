@@ -38,6 +38,10 @@ __decorate([
     __metadata("design:type", String)
 ], Home.prototype, "homeAddress", void 0);
 __decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", String)
+], Home.prototype, "locationName", void 0);
+__decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
 ], Home.prototype, "delete", void 0);

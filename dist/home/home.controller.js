@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomeController = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
-const new_lock_dto_1 = require("./dtos/new-lock.dto");
+const new_home_dto_1 = require("./dtos/new-home.dto");
 const home_service_1 = require("./home.service");
 let HomeController = class HomeController {
     constructor(homeService, httpService) {
@@ -78,7 +78,7 @@ __decorate([
     (0, common_1.Post)('create'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [new_lock_dto_1.NewHomeDTO]),
+    __metadata("design:paramtypes", [new_home_dto_1.NewHomeDTO]),
     __metadata("design:returntype", Promise)
 ], HomeController.prototype, "create", null);
 __decorate([
