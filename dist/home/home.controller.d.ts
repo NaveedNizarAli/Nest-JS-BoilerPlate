@@ -1,4 +1,5 @@
 import { HttpService } from "@nestjs/axios";
+import { DeleteHomeDTO } from "./dtos/delete-home.dto";
 import { NewHomeDTO } from "./dtos/new-home.dto";
 import { HomeService } from "./home.service";
 export declare class HomeController {
@@ -38,4 +39,5 @@ export declare class HomeController {
         error: string;
         data?: undefined;
     }>;
+    delete(home: DeleteHomeDTO): Promise<any>;
 }

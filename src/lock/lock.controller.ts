@@ -48,6 +48,8 @@ export class LockController {
            }
         });
 
+        console.log('data', data);
+
         if(data.success){
             let result = await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+data.lockId +'&date='+ new Date().valueOf())).then( response =>{
                 console.log('response', response);  

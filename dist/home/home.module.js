@@ -10,6 +10,7 @@ exports.HomeModule = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
+const booking_schema_1 = require("../booking/booking.schema");
 const home_controller_1 = require("./home.controller");
 const home_schema_1 = require("./home.schema");
 const home_service_1 = require("./home.service");
@@ -17,7 +18,7 @@ let HomeModule = class HomeModule {
 };
 HomeModule = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Home', schema: home_schema_1.HomeSchema }])],
+        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Home', schema: home_schema_1.HomeSchema }, { name: 'Booking', schema: booking_schema_1.BookingSchema }])],
         controllers: [home_controller_1.HomeController],
         providers: [home_service_1.HomeService],
         exports: [home_service_1.HomeService],

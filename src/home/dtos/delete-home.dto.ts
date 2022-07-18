@@ -7,9 +7,6 @@ export class DeleteHomeDTO {
   accessToken: string;
 
   @IsNotEmpty()
-  homeId: string;
-
-  @IsNotEmpty()
   _id: string;
 
 }

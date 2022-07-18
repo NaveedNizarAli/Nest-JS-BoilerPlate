@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomeController = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
+const delete_home_dto_1 = require("./dtos/delete-home.dto");
 const new_home_dto_1 = require("./dtos/new-home.dto");
 const home_service_1 = require("./home.service");
 let HomeController = class HomeController {
@@ -73,6 +74,10 @@ let HomeController = class HomeController {
             };
         }
     }
+    async delete(home) {
+        let bookings = await this.homeService.getBookingbyHomeID(home._id);
+        console.log('bookings', bookings);
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -94,6 +99,13 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], HomeController.prototype, "getCreatedBy", null);
+__decorate([
+    (0, common_1.Post)('delete'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [delete_home_dto_1.DeleteHomeDTO]),
+    __metadata("design:returntype", Promise)
+], HomeController.prototype, "delete", null);
 HomeController = __decorate([
     (0, common_1.Controller)('home'),
     __metadata("design:paramtypes", [home_service_1.HomeService, axios_1.HttpService])

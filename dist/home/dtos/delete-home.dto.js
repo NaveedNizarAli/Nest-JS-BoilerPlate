@@ -21,10 +21,6 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], DeleteHomeDTO.prototype, "homeId", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
 ], DeleteHomeDTO.prototype, "_id", void 0);
 exports.DeleteHomeDTO = DeleteHomeDTO;
 //# sourceMappingURL=delete-home.dto.js.map
