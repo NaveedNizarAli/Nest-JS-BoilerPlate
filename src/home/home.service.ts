@@ -14,7 +14,7 @@ export class HomeService {
 
     async create(home : Object) : Promise<HomeDocument> {
         console.log('booking', home);
-        const newHome = new this.homeModel(home);
+        const newHome = new this.homeModel({...home, created: new Date().valueOf(), updated : new Date().valueOf()});
         return newHome.save();   
     }
 

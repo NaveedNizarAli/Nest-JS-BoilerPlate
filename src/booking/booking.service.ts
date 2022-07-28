@@ -14,7 +14,7 @@ export class BookingService {
 
     async create(booking : Object) : Promise<BookingDocument> {
             console.log('booking', booking);
-            const newBooking = new this.bookingModel(booking);
+            const newBooking = new this.bookingModel({...booking, created: new Date().valueOf(), updated : new Date().valueOf()});
             return newBooking.save();   
     }
 

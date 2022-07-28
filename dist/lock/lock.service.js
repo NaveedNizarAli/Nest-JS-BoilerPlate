@@ -23,7 +23,7 @@ let LockService = class LockService {
     }
     async create(lock) {
         console.log('lock', lock);
-        const newLock = new this.lockModel(Object.assign({}, lock));
+        const newLock = new this.lockModel(Object.assign(Object.assign({}, lock), { created: new Date().valueOf(), updated: new Date().valueOf() }));
         return newLock.save();
     }
     async getByLockId(id) {

@@ -23,7 +23,7 @@ let BookingService = class BookingService {
     }
     async create(booking) {
         console.log('booking', booking);
-        const newBooking = new this.bookingModel(booking);
+        const newBooking = new this.bookingModel(Object.assign(Object.assign({}, booking), { created: new Date().valueOf(), updated: new Date().valueOf() }));
         return newBooking.save();
     }
     async getall() {

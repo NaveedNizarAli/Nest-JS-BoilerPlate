@@ -20,9 +20,9 @@ export class Lock {
   lockDataString : string;
   @Prop({ required: true, default: false })
   delete: Boolean;
-  @Prop({required : true, default : new Date().valueOf()})
+  @Prop({required : true})
   created : Number;
-  @Prop({required : true, default: new Date().valueOf()})
+  @Prop({required : true})
   updated : Number;
 }
 

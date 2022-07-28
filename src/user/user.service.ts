@@ -51,6 +51,7 @@ export class UserService {
       password,
       fullName,
       userType : [0],
+      created: new Date().valueOf(), updated : new Date().valueOf()
     });
     return newUser.save();
   }

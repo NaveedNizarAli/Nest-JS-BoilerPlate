@@ -23,7 +23,7 @@ let ContactService = class ContactService {
     async create(contact) {
         let findOne = await this.contactModal.findOne({ email: contact['email'] });
         if (!findOne || findOne === null) {
-            const newContact = new this.contactModal(contact);
+            const newContact = new this.contactModal(Object.assign(Object.assign({}, contact), { created: new Date().valueOf(), updated: new Date().valueOf() }));
             return newContact.save();
         }
         else if (!findOne.createdBy.includes(contact['createdBy'])) {

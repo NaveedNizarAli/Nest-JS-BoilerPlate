@@ -50,9 +50,9 @@ export class User {
   userType: Array<number>;
   @Prop({type: [Number], enum: UserTypeEnum})
   profileType: Array<number>;
-  @Prop({required : true, default : new Date().valueOf()})
+  @Prop({required : true})
   created : Number;
-  @Prop({required : true, default: new Date().valueOf()})
+  @Prop({required : true})
   updated : Number;
 }
 

@@ -22,9 +22,9 @@ export class Contact {
   email : string;
   @Prop({type: [String]})
   createdBy: Array<string>;
-  @Prop({required : true, default : new Date().valueOf()})
+  @Prop({required : true })
   created : Number;
-  @Prop({required : true, default: new Date().valueOf()})
+  @Prop({required : true})
   updated : Number;
 }
 

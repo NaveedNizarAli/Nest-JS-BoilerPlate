@@ -46,11 +46,11 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Home.prototype, "delete", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
 ], Home.prototype, "created", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
 ], Home.prototype, "updated", void 0);
 Home = __decorate([
