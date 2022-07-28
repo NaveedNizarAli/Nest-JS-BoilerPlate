@@ -42,4 +42,15 @@ export class HomeService {
         });
     }
 
+    async delete(id: string): Promise<any> {
+        let home = await this.homeModel.findByIdAndDelete(id).exec();
+        
+        let data = await this.bookingModel.find({homeId: id}).exec();
+        for (const item of data) {
+            await this.bookingModel.findByIdAndDelete(item._id).exec();
+        }
+
+        return home;
+    }
+
 }

@@ -49,10 +49,6 @@ let LockService = class LockService {
     }
     async delete(id) {
         let lock = await this.lockModel.findByIdAndDelete(id).exec();
-        let data = await this.bookingModel.find({ lockId: id }).exec();
-        for (const item of data) {
-            await this.bookingModel.findByIdAndDelete(item._id).exec();
-        }
         return lock;
     }
 };

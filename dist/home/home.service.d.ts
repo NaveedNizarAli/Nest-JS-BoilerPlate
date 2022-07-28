@@ -9,4 +9,5 @@ export declare class HomeService {
     getall(): Promise<any>;
     getByCreatedBy(createdBy: string): Promise<any>;
     getBookingbyHomeID(homeId: string): Promise<any>;
+    delete(id: string): Promise<any>;
 }
