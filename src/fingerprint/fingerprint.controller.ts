@@ -22,7 +22,7 @@ export class FingerprintController {
         params.append('startDate', fingerprint.startDate.toString());
         params.append('endDate', fingerprint.endDate.toString());
         params.append('fingerprintNumber', fingerprint.fingerprintNumber);
-        params.append('fingerprintType', '1');
+        params.append('fingerprintType', '4');
         params.append('fingerprintName', fingerprint.fingerprintName);
         params.append('date', new Date().valueOf().toString());
 
@@ -50,12 +50,13 @@ export class FingerprintController {
                 lockId            : fingerprint.lockId,
                 fingerprintNumber : parseInt(fingerprint.fingerprintNumber),
                 fingerprintName   : fingerprint.fingerprintName,
-                fingerprintType   : 1,
+                fingerprintType   : 4,
                 fingerprintId     : data.data
             } 
             return this.fingerprintService.create(fingerprintData).then((res)=>{
                 console.log('res', res);
                 if(res._id) {
+                    console.log('_id')
                     return {
                         success : true,
                         message : 'fingerprint successfully created',
