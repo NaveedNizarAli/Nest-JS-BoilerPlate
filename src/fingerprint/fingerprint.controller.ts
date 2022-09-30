@@ -61,7 +61,7 @@ export class FingerprintController {
                         success : true,
                         message : 'fingerprint successfully created',
                         error   : '',
-                        data    : {...res}
+                        data    : res
                     }
                 }
                 else{
