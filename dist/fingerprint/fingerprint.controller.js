@@ -71,7 +71,7 @@ let FingerprintController = class FingerprintController {
                         success: true,
                         message: 'fingerprint successfully created',
                         error: '',
-                        data: data
+                        data: Object.assign({}, res)
                     };
                 }
                 else {
