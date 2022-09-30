@@ -31,7 +31,6 @@ export class HomeController {
         }
     }
 
-
     @Get('getall')
     async findAll() {
         let data = await this.homeService.getall();
@@ -69,7 +68,6 @@ export class HomeController {
             }
         }
     }
-
 
     @Post('delete')
     async delete(@Body() home: DeleteHomeDTO): Promise<any> {
