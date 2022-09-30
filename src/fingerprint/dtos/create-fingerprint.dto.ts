@@ -20,8 +20,8 @@ export class CreateFingerPrintDTO {
   lockId: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  fingerprintNumber: Number;
+  @IsString()
+  fingerprintNumber: string;
 
   @IsNotEmpty()
   @IsString()

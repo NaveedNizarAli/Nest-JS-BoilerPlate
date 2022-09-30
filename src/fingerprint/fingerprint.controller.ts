@@ -21,7 +21,7 @@ export class FingerprintController {
         params.append('lockId', fingerprint.lockId);
         params.append('startDate', fingerprint.startDate.toString());
         params.append('endDate', fingerprint.endDate.toString());
-        params.append('fingerprintNumber', fingerprint.fingerprintNumber.toString());
+        params.append('fingerprintNumber', fingerprint.fingerprintNumber);
         params.append('fingerprintType', '1');
         params.append('fingerprintName', fingerprint.fingerprintName);
         params.append('date', new Date().valueOf().toString());
@@ -48,7 +48,7 @@ export class FingerprintController {
                 startDate         : fingerprint.startDate,
                 endDate           : fingerprint.endDate,
                 lockId            : fingerprint.lockId,
-                fingerprintNumber : fingerprint.fingerprintNumber,
+                fingerprintNumber : parseInt(fingerprint.fingerprintNumber),
                 fingerprintName   : fingerprint.fingerprintName,
                 fingerprintType   : 1,
                 fingerprintId     : data.data
