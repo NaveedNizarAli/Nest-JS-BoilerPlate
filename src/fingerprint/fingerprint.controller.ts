@@ -34,9 +34,9 @@ export class FingerprintController {
 
 
         let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/fingerprint/add', params , config)).then( response =>{
-            console.log('response', response);
+            console.log('response', response.data);
             if(response){
-                if(response.data.errcode === 0) return {success: true, error: '', message : 'fingerprint created succesfully', data: response.data.fingerprintId};
+                if(response.data.fingerprintId) return {success: true, error: '', message : 'fingerprint created succesfully', data: response.data.fingerprintId};
                 else return {success: false, error: 'unable to create fingerprint ', message : 'unable to create fingerprint', data: ''};
            }
         });
