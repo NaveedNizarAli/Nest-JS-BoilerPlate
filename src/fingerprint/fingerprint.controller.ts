@@ -53,7 +53,7 @@ export class FingerprintController {
                 fingerprintType   : 1,
                 fingerprintId     : data.data
             } 
-            return this.fingerprintService.create({fingerprint: fingerprintData}).then((res)=>{
+            return this.fingerprintService.create(fingerprintData).then((res)=>{
                 console.log('res', res);
                 if(res._id) {
                     return {

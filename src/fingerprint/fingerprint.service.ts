@@ -10,9 +10,9 @@ export class FingerprintService {
         @InjectModel('Fingerprint') private readonly fingerprintModel: Model<FingerprintDocument>,
     ) {}
 
-    async create(fingerprint : Object) : Promise<FingerprintDocument> {
-        console.log('newFingerprint', fingerprint);
-        const newFingerprint = new this.fingerprintModel({...fingerprint, created: new Date().valueOf(), updated : new Date().valueOf()});
+    async create(fingerprintData : Object) : Promise<FingerprintDocument> {
+        console.log('newFingerprint', fingerprintData);
+        const newFingerprint = new this.fingerprintModel({...fingerprintData, created: new Date().valueOf(), updated : new Date().valueOf()});
         return newFingerprint.save();   
     }
 

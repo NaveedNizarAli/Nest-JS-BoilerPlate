@@ -20,9 +20,9 @@ let FingerprintService = class FingerprintService {
     constructor(fingerprintModel) {
         this.fingerprintModel = fingerprintModel;
     }
-    async create(fingerprint) {
-        console.log('newFingerprint', fingerprint);
-        const newFingerprint = new this.fingerprintModel(Object.assign(Object.assign({}, fingerprint), { created: new Date().valueOf(), updated: new Date().valueOf() }));
+    async create(fingerprintData) {
+        console.log('newFingerprint', fingerprintData);
+        const newFingerprint = new this.fingerprintModel(Object.assign(Object.assign({}, fingerprintData), { created: new Date().valueOf(), updated: new Date().valueOf() }));
         return newFingerprint.save();
     }
     async getall(createdBy) {
