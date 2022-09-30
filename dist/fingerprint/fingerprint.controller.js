@@ -161,7 +161,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FingerprintController.prototype, "delete", null);
 FingerprintController = __decorate([
-    (0, common_1.Controller)('booking'),
+    (0, common_1.Controller)('fingerprint'),
     __metadata("design:paramtypes", [fingerprint_service_1.FingerprintService, axios_1.HttpService])
 ], FingerprintController);
 exports.FingerprintController = FingerprintController;

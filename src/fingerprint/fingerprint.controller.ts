@@ -6,7 +6,7 @@ import { EnterPassConfig } from 'src/enums/enterpassAppIds';
 import { firstValueFrom } from 'rxjs';
 import { DeleteFingerPrintDTO } from './dtos/delete-lock.dto';
 
-@Controller('booking')
+@Controller('fingerprint')
 export class FingerprintController {
     constructor(private fingerprintService: FingerprintService, private readonly httpService: HttpService) {}
 
