@@ -6,23 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LockModule = void 0;
+exports.BookingModule = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
-const booking_schema_1 = require("../booking/booking.schema");
-const lock_controller_1 = require("./lock.controller");
-const lock_schema_1 = require("./lock.schema");
-const lock_service_1 = require("./lock.service");
-let LockModule = class LockModule {
+const fingerprint_controller_1 = require("./fingerprint.controller");
+const fingerprint_schema_1 = require("./fingerprint.schema");
+const fingerprint_service_1 = require("./fingerprint.service");
+let BookingModule = class BookingModule {
 };
-LockModule = __decorate([
+BookingModule = __decorate([
     (0, common_1.Module)({
-        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Lock', schema: lock_schema_1.LockSchema }, { name: 'Booking', schema: booking_schema_1.BookingSchema }])],
-        controllers: [lock_controller_1.LockController],
-        providers: [lock_service_1.LockService],
-        exports: [lock_service_1.LockService],
+        imports: [axios_1.HttpModule, mongoose_1.MongooseModule.forFeature([{ name: 'Fingerprint', schema: fingerprint_schema_1.BookingSchema }])],
+        controllers: [fingerprint_controller_1.FingerprintController],
+        providers: [fingerprint_service_1.FingerprintService],
+        exports: [fingerprint_service_1.FingerprintService],
     })
-], LockModule);
-exports.LockModule = LockModule;
-//# sourceMappingURL=lock.module.js.map
+], BookingModule);
+exports.BookingModule = BookingModule;
+//# sourceMappingURL=fingerprint.module.js.map

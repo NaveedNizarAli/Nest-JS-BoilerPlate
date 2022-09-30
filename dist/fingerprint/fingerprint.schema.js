@@ -9,43 +9,59 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LockSchema = exports.Lock = void 0;
+exports.BookingSchema = exports.Fingerprint = void 0;
 const mongoose_1 = require("@nestjs/mongoose");
-let Lock = class Lock {
+let Fingerprint = class Fingerprint {
 };
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Lock.prototype, "createdBy", void 0);
+], Fingerprint.prototype, "createdBy", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Fingerprint.prototype, "startDate", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Fingerprint.prototype, "endDate", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Lock.prototype, "lockId", void 0);
+], Fingerprint.prototype, "lockId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, type: Object }),
-    __metadata("design:type", Object)
-], Lock.prototype, "lockData", void 0);
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Fingerprint.prototype, "fingerprintNumber", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Lock.prototype, "lockDataString", void 0);
+], Fingerprint.prototype, "fingerprintName", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Fingerprint.prototype, "fingerprintType", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: true }),
+    __metadata("design:type", Number)
+], Fingerprint.prototype, "fingerprintId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true, default: false }),
     __metadata("design:type", Boolean)
-], Lock.prototype, "delete", void 0);
+], Fingerprint.prototype, "delete", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
-], Lock.prototype, "created", void 0);
+], Fingerprint.prototype, "created", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, default: new Date().valueOf() }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
-], Lock.prototype, "updated", void 0);
-Lock = __decorate([
+], Fingerprint.prototype, "updated", void 0);
+Fingerprint = __decorate([
     (0, mongoose_1.Schema)({
         timestamps: true,
     })
-], Lock);
-exports.Lock = Lock;
-exports.LockSchema = mongoose_1.SchemaFactory.createForClass(Lock);
-//# sourceMappingURL=lock.schema.js.map
+], Fingerprint);
+exports.Fingerprint = Fingerprint;
+exports.BookingSchema = mongoose_1.SchemaFactory.createForClass(Fingerprint);
+//# sourceMappingURL=fingerprint.schema.js.map

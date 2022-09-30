@@ -9,24 +9,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GetRecordsDTO = void 0;
+exports.CreateFingerPrintDTO = void 0;
 const class_validator_1 = require("class-validator");
-class GetRecordsDTO {
+class CreateFingerPrintDTO {
 }
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], GetRecordsDTO.prototype, "accessToken", void 0);
+], CreateFingerPrintDTO.prototype, "createdBy", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateFingerPrintDTO.prototype, "startDate", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateFingerPrintDTO.prototype, "endDate", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], GetRecordsDTO.prototype, "lockId", void 0);
+], CreateFingerPrintDTO.prototype, "lockId", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], GetRecordsDTO.prototype, "records", void 0);
-exports.GetRecordsDTO = GetRecordsDTO;
-//# sourceMappingURL=get-records.dto.js.map
+], CreateFingerPrintDTO.prototype, "fingerprintNumber", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateFingerPrintDTO.prototype, "fingerprintName", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateFingerPrintDTO.prototype, "accessToken", void 0);
+exports.CreateFingerPrintDTO = CreateFingerPrintDTO;
+//# sourceMappingURL=create-fingerprint.dto.js.map
