@@ -16,6 +16,7 @@ const booking_module_1 = require("./booking/booking.module");
 const lock_module_1 = require("./lock/lock.module");
 const contact_module_1 = require("./contact/contact.module");
 const home_module_1 = require("./home/home.module");
+const fingerprint_module_1 = require("./fingerprint/fingerprint.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -26,7 +27,8 @@ AppModule = __decorate([
             booking_module_1.BookingModule,
             lock_module_1.LockModule,
             contact_module_1.ContactModule,
-            home_module_1.HomeModule
+            home_module_1.HomeModule,
+            fingerprint_module_1.FingerprintModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

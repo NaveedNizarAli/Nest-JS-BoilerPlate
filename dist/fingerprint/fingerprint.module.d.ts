@@ -1,2 +1,2 @@
-export declare class BookingModule {
+export declare class FingerprintModule {
 }

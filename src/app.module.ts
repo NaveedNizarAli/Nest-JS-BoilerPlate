@@ -8,6 +8,7 @@ import { BookingModule } from './booking/booking.module';
 import { LockModule } from './lock/lock.module';
 import { ContactModule } from './contact/contact.module';
 import { HomeModule } from './home/home.module';
+import { FingerprintModule } from './fingerprint/fingerprint.module';
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { HomeModule } from './home/home.module';
     BookingModule,
     LockModule,
     ContactModule,
-    HomeModule
+    HomeModule,
+    FingerprintModule
   ],
   controllers: [AppController],
   providers: [AppService],

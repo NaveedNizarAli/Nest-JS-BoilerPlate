@@ -12,4 +12,4 @@ import { FingerprintService } from './fingerprint.service';
   providers: [FingerprintService],
   exports: [FingerprintService],
 })
-export class BookingModule {}
+export class FingerprintModule {}
