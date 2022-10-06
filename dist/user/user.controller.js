@@ -181,6 +181,27 @@ let UserController = class UserController {
             };
         }
     }
+    async delete(id, user) {
+        let deleteBooking = await this.userService.deleteBooking(id);
+        let deleteContact = await this.userService.deleteContact(id);
+        let data;
+        if (deleteBooking._id && deleteContact._id)
+            data = await this.userService.delete(id);
+        if (data._id) {
+            return {
+                success: true,
+                message: 'user successfully delete',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'user unable to delete',
+                error: 'user unable to delete',
+            };
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('register'),
@@ -211,6 +232,14 @@ __decorate([
     __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserEnterPass]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "update", null);
+__decorate([
+    (0, common_1.Put)('/delete/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_user_dto_1.UpdateUserEnterPass]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "delete", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService, axios_1.HttpService])

@@ -1,13 +1,15 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BookingSchema } from 'src/booking/booking.schema';
+import { ContactSchema } from 'src/contact/contact.schema';
 
 import { UserController } from './user.controller';
 import { UserSchema } from './user.schema';
 import { UserService } from './user.service';
 
 @Module({
-  imports: [HttpModule,MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  imports: [HttpModule,MongooseModule.forFeature([{ name: 'Contact', schema: ContactSchema }, { name: 'Booking', schema: BookingSchema },{ name: 'User', schema: UserSchema }])],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],

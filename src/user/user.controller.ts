@@ -207,5 +207,29 @@ export class UserController {
     }
   }
 
+  @Put('/delete/:id')
+  async delete(@Param('id') id: string, @Body() user: UpdateUserEnterPass) {
+    
+    let deleteBooking = await this.userService.deleteBooking(id);
+    let deleteContact = await this.userService.deleteContact(id);
+
+    let data;
+    if(deleteBooking._id && deleteContact._id)  data =  await this.userService.delete(id);
+    if(data._id){
+      return {
+        success : true,
+        message : 'user successfully delete',
+        data : data
+      }
+    }
+    else{
+      return {
+        success : false,
+        message : 'user unable to delete',
+        error   : 'user unable to delete',
+      }
+    }
+  }
+
 
 }

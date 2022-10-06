@@ -17,8 +17,10 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, bookingModel, contactModal) {
         this.userModel = userModel;
+        this.bookingModel = bookingModel;
+        this.contactModal = contactModal;
     }
     async findByUsername(username) {
         return this.userModel.findOne({ username }).exec();
@@ -47,11 +49,44 @@ let UserService = class UserService {
     async update(id, user) {
         return await this.userModel.findByIdAndUpdate(id, user, { new: true });
     }
+    async delete(id) {
+        return await this.userModel.findByIdAndUpdate(id, { delete: true }, { new: true });
+    }
+    async deleteBooking(id) {
+        const user = await this.userModel.findById(id).exec();
+        let data = await this.bookingModel.find({ createdBy: id }).exec();
+        for (const item of data) {
+            await this.bookingModel.findByIdAndDelete(item._id).exec();
+        }
+        return user;
+    }
+    async deleteContact(id) {
+        const user = await this.userModel.findById(id).exec();
+        let data = await this.contactModal.find({
+            createdBy: {
+                $all: [
+                    id,
+                ]
+            }
+        }).exec();
+        for (const item of data) {
+            const index = item.createdBy.indexOf(id);
+            if (index > -1) {
+                item.createdBy.splice(index, 1);
+            }
+            await this.contactModal.findByIdAndUpdate(item._id, { createdBy: item.createdBy }, { new: true }).exec();
+        }
+        return user;
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('User')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)('Booking')),
+    __param(2, (0, mongoose_1.InjectModel)('Contact')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model])
 ], UserService);
 exports.UserService = UserService;
 //# sourceMappingURL=user.service.js.map
