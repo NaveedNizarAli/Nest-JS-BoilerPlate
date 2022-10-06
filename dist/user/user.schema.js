@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true, unique: true }),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
 ], User.prototype, "fullName", void 0);
 __decorate([

@@ -16,7 +16,7 @@ export class User {
   ttLockHash : string;
   @Prop({ required: true, unique: true })
   username : string;
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   fullName : string;
   @Prop({ required: true })
   password: string;
