@@ -25,15 +25,13 @@ export declare class UserController {
         error: string;
         data?: undefined;
     }>;
-    delete(id: string, user: UpdateUserEnterPass): Promise<{
+    delete(id: string, user: UpdateUserEnterPass): Promise<Observable<{
         success: boolean;
         message: string;
-        data: any;
-        error?: undefined;
-    } | {
+        data: UserDocument;
+    }> | {
         success: boolean;
         message: string;
         error: string;
-        data?: undefined;
     }>;
 }

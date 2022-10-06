@@ -90,7 +90,7 @@ let UserController = class UserController {
         const params = new URLSearchParams();
         params.append('client_id', enterpassAppIds_1.EnterPassConfig.clientId);
         params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
-        params.append('password', passwordHash);
+        params.append('username', passwordHash);
         return this.userService.findByUsername(user.username).then((res) => {
             console.log('res', res);
             if (res && res._id) {
@@ -186,15 +186,26 @@ let UserController = class UserController {
         let deleteContact = await this.userService.deleteContact(id);
         let deleteHome = await this.userService.deleteHome(id);
         let deleteLock = await this.userService.deleteLock(id);
-        let data;
-        if (deleteBooking._id && deleteContact._id)
-            data = await this.userService.delete(id);
+        let data = await this.userService.delete(id);
         if (data._id) {
-            return {
-                success: true,
-                message: 'user successfully delete',
-                data: data
+            const params = new URLSearchParams();
+            params.append('client_id', enterpassAppIds_1.EnterPassConfig.clientId);
+            params.append('client_secret', enterpassAppIds_1.EnterPassConfig.clientSecret);
+            params.append('username', data.ttLockHash);
+            params.append('date', new Date().valueOf().toString());
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             };
+            return this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params, config).pipe((0, rxjs_1.map)(response => {
+                console.log('response', response);
+                return {
+                    success: true,
+                    message: 'user successfully delete',
+                    data: data
+                };
+            }));
         }
         else {
             return {
