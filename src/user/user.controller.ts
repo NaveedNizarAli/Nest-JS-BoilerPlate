@@ -242,18 +242,18 @@ export class UserController {
           params2.append('date', new Date().valueOf().toString());
 
           let deleteLockApi = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2 , config)).then( response =>{
-          
+            console.log('response1', response)
           })
 
-          console.log('deleteLockApi', deleteLockApi)
         })
       }
 
       let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+        console.log('response2', response);  
         return {
-          success : true,
-          message : 'user successfully delete',
-          data    : data
+            success : true,
+            message : 'user successfully delete',
+            data    : data
         }
       })
 
