@@ -246,18 +246,31 @@ export class UserController {
           })
 
         })
+
+
+        let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+          console.log('response2', response);  
+          return {
+              success : true,
+              message : 'user successfully delete',
+              data    : data
+          }
+        })
+  
+        return deleteUser;
       }
-
-      let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
-        console.log('response2', response);  
-        return {
-            success : true,
-            message : 'user successfully delete',
-            data    : data
-        }
-      })
-
-      return deleteUser;
+      else {
+        let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+          console.log('response3', response);  
+          return {
+              success : true,
+              message : 'user successfully delete',
+              data    : data
+          }
+        })
+  
+        return deleteUser;
+      }
 
     }
     else{
