@@ -92,12 +92,11 @@ let UserService = class UserService {
         return user;
     }
     async deleteLock(id) {
-        const user = await this.userModel.findById(id).exec();
         let data = await this.lockModel.find({ createdBy: id }).exec();
         for (const item of data) {
             await this.lockModel.findByIdAndDelete(item._id).exec();
         }
-        return user;
+        return data;
     }
 };
 UserService = __decorate([

@@ -5,6 +5,10 @@ export class UpdateUserEnterPass {
   
   @IsString()
   @IsOptional()
+  accessToken: string;
+
+  @IsString()
+  @IsOptional()
   username: string;
 
   @IsString()

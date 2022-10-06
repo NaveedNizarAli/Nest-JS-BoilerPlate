@@ -1,4 +1,5 @@
 export declare class UpdateUserEnterPass {
+    accessToken: string;
     username: string;
     password: string;
     date: string;

@@ -2,7 +2,7 @@ import { UserService } from './user.service';
 import { Body, Controller, Get, HttpException, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
-import { catchError, map, Observable } from 'rxjs';
+import { catchError, elementAt, firstValueFrom, map, Observable } from 'rxjs';
 import { NewEnterPassUserDTO } from './dtos/new-enterpass-user.dto';
 import * as crypto from 'crypto';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
@@ -53,7 +53,7 @@ export class UserController {
       console.log('response signup', response.data)
       if(response) {
         if(!response.data.errcode) {
-          return this.userService.findByUsernameSignup(user.username).then((userResponse)=>{
+          return this.userService.findByUsername(user.username).then((userResponse)=>{
             if( userResponse && userResponse._id) {
               let user = {password: userData.password, date: userData.date, fullName: userData.fullName}
               this.userService.update(userResponse._id, user)
@@ -208,7 +208,7 @@ export class UserController {
   }
 
   @Put('/delete/:id')
-  async delete(@Param('id') id: string, @Body() user: UpdateUserEnterPass) {
+  async delete(@Param('id') id: string, @Body() user: UpdateUserEnterPass): Promise<any> {
     
     let deleteBooking = await this.userService.deleteBooking(id);
     let deleteContact = await this.userService.deleteContact(id);
@@ -217,11 +217,42 @@ export class UserController {
 
     let data =  await this.userService.delete(id);
     if(data._id){
-      return {
-        success : true,
-        message : 'user successfully delete',
-        data : data
+      const params = new URLSearchParams();
+
+      params.append('clientId', EnterPassConfig.clientId);
+      params.append('clientSecret', EnterPassConfig.clientSecret);
+      params.append('username', data.ttLockHash);
+      params.append('date', new Date().valueOf().toString());
+             
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       }
+
+      if(deleteLock && deleteLock.length > 0){
+        deleteLock.map(async (element, idx)=> {
+          const params2 = new URLSearchParams();
+
+          params2.append('clientId', EnterPassConfig.clientId);
+          params2.append('accessToken', user.accessToken);
+          params2.append('lockId', element.lockId);
+          params2.append('date', new Date().valueOf().toString());
+
+          let deleteLockApi = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2 , config)).then( response =>{
+          
+          })
+
+        })
+      }
+
+      let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+        return {
+          success : true,
+          message : 'user successfully delete',
+          data    : data
+        }
+      })
     }
     else{
       return {
