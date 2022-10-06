@@ -106,6 +106,23 @@ let ContactController = class ContactController {
             };
         }
     }
+    async delete(id, createdBy, user) {
+        let data = await this.contactService.deleteContact(id, createdBy);
+        if (data._id) {
+            return {
+                success: true,
+                message: 'contact successfully delete',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'contact unable to delete',
+                error: 'contact unable to delete',
+            };
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -142,6 +159,15 @@ __decorate([
     __metadata("design:paramtypes", [String, update_contact_dto_1.UpdateContactDTO]),
     __metadata("design:returntype", Promise)
 ], ContactController.prototype, "update", null);
+__decorate([
+    (0, common_1.Put)('/delete/:id/:createdBy'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Param)('createdBy')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, update_contact_dto_1.UpdateContactDTO]),
+    __metadata("design:returntype", Promise)
+], ContactController.prototype, "delete", null);
 ContactController = __decorate([
     (0, common_1.Controller)('contact'),
     __metadata("design:paramtypes", [contact_service_1.ContactService])

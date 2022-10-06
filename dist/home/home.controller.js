@@ -15,8 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HomeController = void 0;
 const axios_1 = require("@nestjs/axios");
 const common_1 = require("@nestjs/common");
-const rxjs_1 = require("rxjs");
-const enterpassAppIds_1 = require("../enums/enterpassAppIds");
 const delete_home_dto_1 = require("./dtos/delete-home.dto");
 const new_home_dto_1 = require("./dtos/new-home.dto");
 const home_service_1 = require("./home.service");
@@ -76,31 +74,8 @@ let HomeController = class HomeController {
             };
         }
     }
-    async delete(home) {
-        let bookings = await this.homeService.getBookingbyHomeID(home._id);
-        console.log('bookings', bookings);
-        for (const item of bookings) {
-            for (const element of item.lockIds) {
-                const params = new URLSearchParams();
-                params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
-                let access_token = home.accessToken.split(' ')[1];
-                params.append('accessToken', access_token);
-                params.append('keyboardPwdId', element.keyboardPwdId);
-                params.append('lockId', element.lockId);
-                params.append('deleteType', '1');
-                params.append('date', new Date().valueOf().toString());
-                const config = {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                };
-                let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/keyboardPwd/delete', params, config)).then(response => {
-                    console.log('res', response);
-                });
-            }
-        }
-        return this.homeService.delete(home._id).then((res) => {
-            console.log('res', res);
+    async delete(id, home) {
+        return this.homeService.delete(id).then((res) => {
             if (res === null)
                 return { success: false, error: 'unable to delete home ', message: 'unable to delete home', data: '' };
             if (res && res._id)
@@ -131,10 +106,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], HomeController.prototype, "getCreatedBy", null);
 __decorate([
-    (0, common_1.Post)('delete'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Put)('delete/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [delete_home_dto_1.DeleteHomeDTO]),
+    __metadata("design:paramtypes", [String, delete_home_dto_1.DeleteHomeDTO]),
     __metadata("design:returntype", Promise)
 ], HomeController.prototype, "delete", null);
 HomeController = __decorate([

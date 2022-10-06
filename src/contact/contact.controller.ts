@@ -103,4 +103,25 @@ export class ContactController {
         }
     }
 
+
+    @Put('/delete/:id/:createdBy')
+    async delete(@Param('id') id: string, @Param('createdBy') createdBy: string, @Body() user: UpdateContactDTO) {
+        
+        let data =  await this.contactService.deleteContact(id, createdBy);
+        if(data._id){
+            return {
+                success : true,
+                message : 'contact successfully delete',
+                data : data
+            }
+            }
+            else{
+            return {
+                success : false,
+                message : 'contact unable to delete',
+                error   : 'contact unable to delete',
+            }
+        }
+    }
+
 }

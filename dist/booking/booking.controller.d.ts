@@ -28,4 +28,15 @@ export declare class BookingController {
         error: string;
         data?: undefined;
     }>;
+    delete(id: string, booking: CreateBookingDTO): Promise<{
+        success: boolean;
+        message: string;
+        data: any;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: string;
+        data?: undefined;
+    }>;
 }

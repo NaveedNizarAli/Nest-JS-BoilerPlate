@@ -39,5 +39,5 @@ export declare class HomeController {
         error: string;
         data?: undefined;
     }>;
-    delete(home: DeleteHomeDTO): Promise<any>;
+    delete(id: string, home: DeleteHomeDTO): Promise<any>;
 }

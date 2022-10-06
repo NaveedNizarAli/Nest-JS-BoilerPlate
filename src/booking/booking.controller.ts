@@ -1,5 +1,5 @@
 import { HttpService } from '@nestjs/axios';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { EnterPassConfig } from 'src/enums/enterpassAppIds';
 import { BookingService } from './booking.service';
@@ -145,6 +145,26 @@ export class BookingController {
                 success : false,
                 message : 'unable to find bookings',
                 error   : 'unable to find bookings',
+            }
+        }
+    }
+
+    @Put('/delete/:id')
+    async delete(@Param('id') id: string, @Body() booking: CreateBookingDTO) {
+        
+        let data =  await this.bookingService.deleteBooking(id);
+        if(data._id){
+            return {
+                success : true,
+                message : 'booking successfully delete',
+                data : data
+            }
+            }
+            else{
+            return {
+                success : false,
+                message : 'booking unable to delete',
+                error   : 'booking unable to delete',
             }
         }
     }

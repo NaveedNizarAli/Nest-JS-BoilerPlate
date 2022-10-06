@@ -1,5 +1,5 @@
 import { HttpService } from "@nestjs/axios";
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { firstValueFrom } from "rxjs";
 import { EnterPassConfig } from "src/enums/enterpassAppIds";
 import { DeleteHomeDTO } from "./dtos/delete-home.dto";
@@ -69,48 +69,14 @@ export class HomeController {
         }
     }
 
-    @Post('delete')
-    async delete(@Body() home: DeleteHomeDTO): Promise<any> {
+    @Put('delete/:id')
+    async delete(@Param('id') id: string, @Body() home: DeleteHomeDTO): Promise<any> {
 
-       let bookings = await this.homeService.getBookingbyHomeID(home._id);
-        console.log('bookings', bookings);
-
-
-        for (const item of bookings) {
-
-            for (const element of item.lockIds) {
-            
-                const params = new URLSearchParams();
-                params.append('clientId',  EnterPassConfig.clientId);
-        
-                let access_token = home.accessToken.split(' ')[1]
-        
-                params.append('accessToken', access_token);
-                params.append('keyboardPwdId', element.keyboardPwdId);
-                params.append('lockId', element.lockId);
-                params.append('deleteType', '1');
-                params.append('date', new Date().valueOf().toString());
-        
-                const config = {
-                    headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                }
-
-                let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/keyboardPwd/delete', params , config)).then( response =>{
-                    console.log('res', response);
-                });
-            }
-        }
-
-
-        return this.homeService.delete(home._id).then((res)=>{
-            console.log('res', res);
+        return this.homeService.delete(id).then((res)=>{
             if(res === null)  return {success: false, error: 'unable to delete home ', message : 'unable to delete home', data: ''};
             if(res && res._id) return {success: true, message : 'home successfully deleted', error : '', data : res};
             else return {success: false, error: 'unable to delete home ', message : 'unable to delete home', data: ''};
          })
-
 
     }
 }

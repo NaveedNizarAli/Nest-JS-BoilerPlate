@@ -8,4 +8,5 @@ export declare class ContactService {
     getById(id: string): Promise<ContactDocument>;
     getByCreatedBy(createdBy: string): Promise<any>;
     update(id: string, contact: Object): Promise<ContactDocument>;
+    deleteContact(id: string, createdBy: string): Promise<any>;
 }

@@ -46,6 +46,11 @@ let BookingService = class BookingService {
             homeId: homeId
         });
     }
+    async deleteBooking(id) {
+        let data = await this.bookingModel.findById(id).exec();
+        await this.bookingModel.findByIdAndDelete(id).exec();
+        return data;
+    }
 };
 BookingService = __decorate([
     (0, common_1.Injectable)(),

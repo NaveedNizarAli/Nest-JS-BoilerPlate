@@ -58,4 +58,16 @@ export class ContactService {
         return await this.contactModal.findByIdAndUpdate(id, contact, {new: true})
     }
 
+    async deleteContact(id: string, createdBy: string): Promise<any> {
+        
+        let contact = await this.contactModal.findById(id).exec();
+
+        const index = contact.createdBy.indexOf(createdBy);
+        if (index > -1) { 
+        contact.createdBy.splice(index, 1);
+        }
+        await this.contactModal.findByIdAndUpdate(id, {createdBy: contact.createdBy}, {new: true}).exec();
+    
+        return contact;
+    }
 }

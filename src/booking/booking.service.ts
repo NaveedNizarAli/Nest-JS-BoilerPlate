@@ -41,4 +41,12 @@ export class BookingService {
             homeId: homeId
         });
     }
+
+    async deleteBooking(id: string): Promise<any> {
+        
+        let data = await this.bookingModel.findById(id).exec();
+        await this.bookingModel.findByIdAndDelete(id).exec();  
+        return data;
+    
+    }
 }
