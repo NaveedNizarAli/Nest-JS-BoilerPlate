@@ -243,6 +243,7 @@ export class UserController {
           
           })
 
+          console.log('deleteLockApi', deleteLockApi)
         })
       }
 
@@ -253,6 +254,9 @@ export class UserController {
           data    : data
         }
       })
+
+      console.log('deleteUser', deleteUser)
+
     }
     else{
       return {
