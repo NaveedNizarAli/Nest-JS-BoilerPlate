@@ -218,7 +218,7 @@ let UserController = class UserController {
                     data: data
                 };
             });
-            console.log('deleteUser', deleteUser);
+            return deleteUser;
         }
         else {
             return {
