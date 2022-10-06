@@ -25,7 +25,7 @@ let UserService = class UserService {
         this.lockModel = lockModel;
     }
     async findByUsername(username) {
-        return this.userModel.findOne({ username }).exec();
+        return this.userModel.findOne({ username: username, delete: false }).exec();
     }
     async findById(id) {
         const user = await this.userModel.findById(id).exec();
