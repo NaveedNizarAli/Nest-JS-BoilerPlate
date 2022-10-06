@@ -186,6 +186,7 @@ let UserController = class UserController {
         let deleteContact = await this.userService.deleteContact(id);
         let deleteHome = await this.userService.deleteHome(id);
         let deleteLock = await this.userService.deleteLock(id);
+        console.log('deleteLock', deleteLock);
         let data = await this.userService.delete(id);
         if (data._id) {
             const params = new URLSearchParams();

@@ -215,6 +215,8 @@ export class UserController {
     let deleteHome    = await this.userService.deleteHome(id);
     let deleteLock    = await this.userService.deleteLock(id);
 
+    console.log('deleteLock', deleteLock)
+
     let data =  await this.userService.delete(id);
     if(data._id){
       const params = new URLSearchParams();
@@ -255,7 +257,7 @@ export class UserController {
         }
       })
 
-      console.log('deleteUser', deleteUser)
+      return deleteUser;
 
     }
     else{
