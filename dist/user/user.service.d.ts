@@ -13,6 +13,7 @@ export declare class UserService {
     private readonly lockModel;
     constructor(userModel: Model<UserDocument>, bookingModel: Model<BookingDocument>, contactModal: Model<ContactDocument>, homeModel: Model<HomeDocument>, lockModel: Model<LockDocument>);
     findByUsername(username: string): Promise<UserDocument | null>;
+    findByUsernameSignup(username: string): Promise<UserDocument | null>;
     findById(id: string): Promise<UserDetails | null>;
     find(): Promise<User[]>;
     create(usernameHash: string, username: string, ttLockHash: string, password: string, date: string, fullName: string): Promise<UserDocument>;

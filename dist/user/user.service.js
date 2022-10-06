@@ -27,6 +27,9 @@ let UserService = class UserService {
     async findByUsername(username) {
         return this.userModel.findOne({ username: username, delete: false }).exec();
     }
+    async findByUsernameSignup(username) {
+        return this.userModel.findOne({ username: username, delete: true }).exec();
+    }
     async findById(id) {
         const user = await this.userModel.findById(id).exec();
         if (!user)

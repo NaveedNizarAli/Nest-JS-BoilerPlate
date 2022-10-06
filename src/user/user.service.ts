@@ -25,6 +25,10 @@ export class UserService {
     return this.userModel.findOne({ username: username, delete: false }).exec();
   }
 
+  async findByUsernameSignup(username: string): Promise<UserDocument | null> {
+    return this.userModel.findOne({ username: username, delete: true }).exec();
+  }
+
   async findById(id: string): Promise<UserDetails | null> {
     const user = await this.userModel.findById(id).exec();
     if (!user) return null;
