@@ -4,6 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BookingDocument } from 'src/booking/booking.schema';
 import { ContactDocument } from 'src/contact/contact.schema';
+import { HomeDocument } from 'src/home/home.schema';
+import { LockDocument } from 'src/lock/lock.schema';
 import { UpdateUserEnterPass } from './dtos/update-user.dto';
 import { UserDetails } from './user-details.interface';
 
@@ -15,6 +17,8 @@ export class UserService {
     @InjectModel('User') private readonly userModel       : Model<UserDocument>,
     @InjectModel('Booking') private readonly bookingModel : Model<BookingDocument>,
     @InjectModel('Contact') private readonly contactModal : Model<ContactDocument>,
+    @InjectModel('Home') private readonly homeModel       : Model<HomeDocument>,
+    @InjectModel('Lock') private readonly lockModel       : Model<LockDocument>,
   ) {}
 
   async findByUsername(username: string): Promise<UserDocument | null> {
@@ -82,7 +86,7 @@ export class UserService {
         ]
       }
     }).exec();
-    
+
     for (const item of data) {
       const index = item.createdBy.indexOf(id);
       if (index > -1) { 
@@ -93,4 +97,29 @@ export class UserService {
 
     return user;
   }
+
+  async deleteHome(id: string): Promise<any> {
+   
+    const user = await this.userModel.findById(id).exec();
+    
+    let data = await this.homeModel.find({createdBy: id}).exec();
+    for (const item of data) {
+       await this.homeModel.findByIdAndDelete(item._id).exec();
+    }
+
+    return user;
+  }
+
+  async deleteLock(id: string): Promise<any> {
+   
+    const user = await this.userModel.findById(id).exec();
+    
+    let data = await this.lockModel.find({createdBy: id}).exec();
+    for (const item of data) {
+       await this.lockModel.findByIdAndDelete(item._id).exec();
+    }
+
+    return user;
+  }
+
 }

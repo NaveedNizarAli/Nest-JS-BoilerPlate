@@ -184,6 +184,8 @@ let UserController = class UserController {
     async delete(id, user) {
         let deleteBooking = await this.userService.deleteBooking(id);
         let deleteContact = await this.userService.deleteContact(id);
+        let deleteHome = await this.userService.deleteHome(id);
+        let deleteLock = await this.userService.deleteLock(id);
         let data;
         if (deleteBooking._id && deleteContact._id)
             data = await this.userService.delete(id);

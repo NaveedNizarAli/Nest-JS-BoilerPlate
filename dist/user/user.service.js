@@ -17,10 +17,12 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let UserService = class UserService {
-    constructor(userModel, bookingModel, contactModal) {
+    constructor(userModel, bookingModel, contactModal, homeModel, lockModel) {
         this.userModel = userModel;
         this.bookingModel = bookingModel;
         this.contactModal = contactModal;
+        this.homeModel = homeModel;
+        this.lockModel = lockModel;
     }
     async findByUsername(username) {
         return this.userModel.findOne({ username }).exec();
@@ -78,13 +80,33 @@ let UserService = class UserService {
         }
         return user;
     }
+    async deleteHome(id) {
+        const user = await this.userModel.findById(id).exec();
+        let data = await this.homeModel.find({ createdBy: id }).exec();
+        for (const item of data) {
+            await this.homeModel.findByIdAndDelete(item._id).exec();
+        }
+        return user;
+    }
+    async deleteLock(id) {
+        const user = await this.userModel.findById(id).exec();
+        let data = await this.lockModel.find({ createdBy: id }).exec();
+        for (const item of data) {
+            await this.lockModel.findByIdAndDelete(item._id).exec();
+        }
+        return user;
+    }
 };
 UserService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)('User')),
     __param(1, (0, mongoose_1.InjectModel)('Booking')),
     __param(2, (0, mongoose_1.InjectModel)('Contact')),
+    __param(3, (0, mongoose_1.InjectModel)('Home')),
+    __param(4, (0, mongoose_1.InjectModel)('Lock')),
     __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model,
         mongoose_2.Model])
 ], UserService);
