@@ -236,8 +236,10 @@ export class UserController {
         deleteLock.map(async (element, idx)=> {
           const params2 = new URLSearchParams();
 
+          let access_token = user.accessToken.split(' ')[1];
+
           params2.append('clientId', EnterPassConfig.clientId);
-          params2.append('accessToken', user.accessToken);
+          params2.append('accessToken', access_token);
           params2.append('lockId', element.lockId);
           params2.append('date', new Date().valueOf().toString());
 

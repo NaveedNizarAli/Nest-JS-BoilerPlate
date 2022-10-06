@@ -202,8 +202,9 @@ let UserController = class UserController {
             if (deleteLock && deleteLock.length > 0) {
                 deleteLock.map(async (element, idx) => {
                     const params2 = new URLSearchParams();
+                    let access_token = user.accessToken.split(' ')[1];
                     params2.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
-                    params2.append('accessToken', user.accessToken);
+                    params2.append('accessToken', access_token);
                     params2.append('lockId', element.lockId);
                     params2.append('date', new Date().valueOf().toString());
                     let deleteLockApi = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2, config)).then(response => {
