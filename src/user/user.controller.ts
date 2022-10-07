@@ -210,6 +210,7 @@ export class UserController {
   @Put('/delete/:id')
   async delete(@Param('id') id: string, @Body() user: UpdateUserEnterPass): Promise<any> {
     
+    
     let deleteBooking = await this.userService.deleteBooking(id);
     let deleteContact = await this.userService.deleteContact(id);
     let deleteHome    = await this.userService.deleteHome(id);

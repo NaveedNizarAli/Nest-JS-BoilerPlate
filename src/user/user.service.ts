@@ -65,7 +65,7 @@ export class UserService {
   }
 
   async delete(id: string): Promise<UserDocument> {
-    return await this.userModel.findByIdAndUpdate(id, {delete: true}, {new: true})
+    return await this.userModel.findByIdAndDelete(id).exec();
   }
 
   async deleteBooking(id: string): Promise<any> {

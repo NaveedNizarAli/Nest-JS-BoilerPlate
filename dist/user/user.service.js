@@ -55,7 +55,7 @@ let UserService = class UserService {
         return await this.userModel.findByIdAndUpdate(id, user, { new: true });
     }
     async delete(id) {
-        return await this.userModel.findByIdAndUpdate(id, { delete: true }, { new: true });
+        return await this.userModel.findByIdAndDelete(id).exec();
     }
     async deleteBooking(id) {
         const user = await this.userModel.findById(id).exec();
