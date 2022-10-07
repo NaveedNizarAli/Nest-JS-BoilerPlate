@@ -28,7 +28,7 @@ export declare class BookingController {
         error: string;
         data?: undefined;
     }>;
-    delete(id: string, booking: CreateBookingDTO): Promise<{
+    delete(id: string): Promise<{
         success: boolean;
         message: string;
         data: any;

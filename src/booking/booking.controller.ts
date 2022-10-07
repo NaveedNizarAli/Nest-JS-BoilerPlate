@@ -150,7 +150,7 @@ export class BookingController {
     }
 
     @Put('/delete/:id')
-    async delete(@Param('id') id: string, @Body() booking: CreateBookingDTO) {
+    async delete(@Param('id') id: string) {
         
         let data =  await this.bookingService.deleteBooking(id);
         if(data._id){

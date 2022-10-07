@@ -140,7 +140,7 @@ let BookingController = class BookingController {
             };
         }
     }
-    async delete(id, booking) {
+    async delete(id) {
         let data = await this.bookingService.deleteBooking(id);
         if (data._id) {
             return {
@@ -181,9 +181,8 @@ __decorate([
 __decorate([
     (0, common_1.Put)('/delete/:id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, create_booking_dto_1.CreateBookingDTO]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BookingController.prototype, "delete", null);
 BookingController = __decorate([
