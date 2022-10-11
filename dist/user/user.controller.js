@@ -200,7 +200,8 @@ let UserController = class UserController {
                 }
             };
             if (deleteLock && deleteLock.length > 0) {
-                deleteLock.map(async (element, idx) => {
+                let idx = 0;
+                for (const element of deleteLock) {
                     const params2 = new URLSearchParams();
                     let access_token = user.accessToken.split(' ')[1];
                     params2.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
@@ -210,7 +211,7 @@ let UserController = class UserController {
                     let deleteLockApi = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2, config)).then(response => {
                         console.log('response1', response);
                     });
-                });
+                }
                 let deleteUser = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params, config)).then(response => {
                     console.log('response2', response);
                     return {

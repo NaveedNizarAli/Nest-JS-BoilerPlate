@@ -234,7 +234,8 @@ export class UserController {
       }
 
       if(deleteLock && deleteLock.length > 0){
-        deleteLock.map(async (element, idx)=> {
+        let idx = 0;
+        for (const element of deleteLock) {
           const params2 = new URLSearchParams();
 
           let access_token = user.accessToken.split(' ')[1];
@@ -248,7 +249,7 @@ export class UserController {
             console.log('response1', response)
           })
 
-        })
+        }
 
 
         let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
