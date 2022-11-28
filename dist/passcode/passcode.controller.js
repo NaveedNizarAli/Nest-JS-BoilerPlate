@@ -160,7 +160,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PasscodeController.prototype, "createrandom", null);
 PasscodeController = __decorate([
-    (0, common_1.Controller)('booking'),
+    (0, common_1.Controller)('passcode'),
     __metadata("design:paramtypes", [passcode_service_1.PasscodeService, axios_1.HttpService])
 ], PasscodeController);
 exports.PasscodeController = PasscodeController;

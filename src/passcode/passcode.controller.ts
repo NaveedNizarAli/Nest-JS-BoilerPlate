@@ -6,7 +6,7 @@ import { PasscodeService } from './passcode.service';
 import { CreatePassCodeDTO } from './dtos/create-passcode.dto';
 import { CreateCustomPassCodeDTO } from './dtos/create-custompasscode.dto';
 
-@Controller('booking')
+@Controller('passcode')
 export class PasscodeController {
     constructor(private PasscodeService: PasscodeService, private readonly httpService: HttpService) {}
 
