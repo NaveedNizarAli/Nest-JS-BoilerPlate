@@ -9,6 +9,7 @@ import { LockModule } from './lock/lock.module';
 import { ContactModule } from './contact/contact.module';
 import { HomeModule } from './home/home.module';
 import { FingerprintModule } from './fingerprint/fingerprint.module';
+import { PasscodeModule } from './passcode/passcode.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { FingerprintModule } from './fingerprint/fingerprint.module';
     LockModule,
     ContactModule,
     HomeModule,
-    FingerprintModule
+    FingerprintModule,
+    PasscodeModule
   ],
   controllers: [AppController],
   providers: [AppService],

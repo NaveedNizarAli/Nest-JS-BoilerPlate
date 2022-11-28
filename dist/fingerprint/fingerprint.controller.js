@@ -26,7 +26,6 @@ let FingerprintController = class FingerprintController {
         this.httpService = httpService;
     }
     async create(fingerprint) {
-        console.log('create');
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
         let access_token = fingerprint.accessToken.split(' ')[1];

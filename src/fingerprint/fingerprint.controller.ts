@@ -12,7 +12,6 @@ export class FingerprintController {
 
     @Post('create')
     async create(@Body() fingerprint: CreateFingerPrintDTO): Promise<any> {
-        console.log('create');
         const params = new URLSearchParams();
         params.append('clientId',  EnterPassConfig.clientId);
 
