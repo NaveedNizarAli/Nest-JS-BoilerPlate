@@ -16,7 +16,7 @@ export class Passcode {
   endDate : Number;
   @Prop({ required: true})
   lockId: string;
-  @Prop({ required: true })
+  @Prop({ })
   keyboardPwdType: Number;
   @Prop({ required: true })
   keyboardPwdName: string;

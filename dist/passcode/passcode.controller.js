@@ -19,6 +19,7 @@ const rxjs_1 = require("rxjs");
 const enterpassAppIds_1 = require("../enums/enterpassAppIds");
 const passcode_service_1 = require("./passcode.service");
 const create_passcode_dto_1 = require("./dtos/create-passcode.dto");
+const create_custompasscode_dto_1 = require("./dtos/create-custompasscode.dto");
 let PasscodeController = class PasscodeController {
     constructor(PasscodeService, httpService) {
         this.PasscodeService = PasscodeService;
@@ -84,6 +85,65 @@ let PasscodeController = class PasscodeController {
             return data;
         }
     }
+    async createrandom(passcode) {
+        const params = new URLSearchParams();
+        params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
+        let access_token = passcode.accessToken.split(' ')[1];
+        params.append('accessToken', access_token);
+        params.append('lockId', passcode.lockId);
+        params.append('startDate', passcode.startDate.toString());
+        params.append('endDate', passcode.endDate.toString());
+        params.append('keyboardPwdName', passcode.keyboardPwdName);
+        params.append('keyboardPwd', passcode.keyboardPwd.toString());
+        params.append('date', new Date().valueOf().toString());
+        const config = {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        };
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/keyboardPwd/add', params, config)).then(response => {
+            console.log('response', response.data);
+            if (response) {
+                if (response.data.keyboardPwdId)
+                    return { success: true, error: '', message: 'custom passcode created succesfully', data: response.data };
+                else
+                    return { success: false, error: 'unable to create custom passcode ', message: 'unable to create custom passcode', data: '' };
+            }
+        });
+        if (data.success) {
+            let passcodeData = {
+                createdBy: passcode.createdBy,
+                startDate: passcode.startDate,
+                endDate: passcode.endDate,
+                lockId: passcode.lockId,
+                keyboardPwdName: passcode.keyboardPwdName,
+                keyboardPwd: passcode.keyboardPwd,
+                keyboardPwdId: data.data.keyboardPwdId
+            };
+            return this.PasscodeService.create(passcodeData).then((res) => {
+                console.log('res', res);
+                if (res._id) {
+                    return {
+                        success: true,
+                        message: 'custom passcode successfully created',
+                        error: '',
+                        data: Object.assign(Object.assign({}, passcodeData), { _id: res._id, created: new Date().valueOf(), updated: new Date().valueOf() })
+                    };
+                }
+                else {
+                    return {
+                        success: false,
+                        message: 'unable to create custom passcode',
+                        error: 'unable to create custom passcode',
+                        data: ''
+                    };
+                }
+            });
+        }
+        else {
+            return data;
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -92,6 +152,13 @@ __decorate([
     __metadata("design:paramtypes", [create_passcode_dto_1.CreatePassCodeDTO]),
     __metadata("design:returntype", Promise)
 ], PasscodeController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('createcustom'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_custompasscode_dto_1.CreateCustomPassCodeDTO]),
+    __metadata("design:returntype", Promise)
+], PasscodeController.prototype, "createrandom", null);
 PasscodeController = __decorate([
     (0, common_1.Controller)('booking'),
     __metadata("design:paramtypes", [passcode_service_1.PasscodeService, axios_1.HttpService])

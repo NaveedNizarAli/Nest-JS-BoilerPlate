@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import {  IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class CreatePassCodeDTO {
+export class CreateCustomPassCodeDTO {
 
   @IsNotEmpty()
   @IsString()
@@ -13,7 +13,7 @@ export class CreatePassCodeDTO {
 
   @IsNotEmpty()
   @IsNumber()
-  keyboardPwdType: Number;
+  keyboardPwd: Number;
 
   @IsNotEmpty()
   @IsString()

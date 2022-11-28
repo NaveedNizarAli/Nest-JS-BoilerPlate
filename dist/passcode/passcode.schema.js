@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], Passcode.prototype, "lockId", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({ required: true }),
+    (0, mongoose_1.Prop)({}),
     __metadata("design:type", Number)
 ], Passcode.prototype, "keyboardPwdType", void 0);
 __decorate([
