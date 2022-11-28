@@ -12,7 +12,7 @@ export class Passcode {
   createdBy : string;
   @Prop({ required: true })
   startDate : Number;
-  @Prop({ required: true })
+  @Prop({ })
   endDate : Number;
   @Prop({ required: true})
   lockId: string;
