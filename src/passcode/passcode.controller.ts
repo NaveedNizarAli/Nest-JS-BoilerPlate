@@ -15,6 +15,8 @@ export class PasscodeController {
         const params = new URLSearchParams();
         params.append('clientId',  EnterPassConfig.clientId);
 
+        console.log('passcode', passcode);
+
         let access_token = passcode.accessToken.split(' ')[1];
         params.append('accessToken', access_token);
         params.append('lockId', passcode.lockId);

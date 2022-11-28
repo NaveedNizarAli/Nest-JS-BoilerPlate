@@ -28,6 +28,7 @@ let PasscodeController = class PasscodeController {
     async create(passcode) {
         const params = new URLSearchParams();
         params.append('clientId', enterpassAppIds_1.EnterPassConfig.clientId);
+        console.log('passcode', passcode);
         let access_token = passcode.accessToken.split(' ')[1];
         params.append('accessToken', access_token);
         params.append('lockId', passcode.lockId);
