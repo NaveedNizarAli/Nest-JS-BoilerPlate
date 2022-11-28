@@ -12,9 +12,15 @@ export class PasscodeService {
         @InjectModel('Lock') private readonly lockModel: Model<LockDocument>,
     ) {}
 
-    async create(passcodeData : Object) : Promise<PasscodeDocument> {
-        console.log('passcodeData', passcodeData);
-        const newPasscode = new this.passcodeModel({...passcodeData, created: new Date().valueOf(), updated : new Date().valueOf()});
+    async create(passcodeData : Object, endDate: Number) : Promise<PasscodeDocument> {
+        let newPasscode;
+        if(endDate){
+            newPasscode = new this.passcodeModel({...passcodeData, created: new Date().valueOf(), endDate: endDate, updated : new Date().valueOf()});
+        }
+        else{ 
+            newPasscode = new this.passcodeModel({...passcodeData, created: new Date().valueOf(), updated : new Date().valueOf()});
+        }
+        
         return newPasscode.save(); 
     }
 

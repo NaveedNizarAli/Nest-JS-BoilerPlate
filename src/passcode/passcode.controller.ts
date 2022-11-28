@@ -53,9 +53,8 @@ export class PasscodeController {
                 keyboardPwdId   : data.data.keyboardPwdId
             } 
 
-            if(passcode.endDate)  passcodeData['endDate'] = passcode.endDate;
 
-            return this.PasscodeService.create(passcodeData).then((res)=>{
+            return this.PasscodeService.create(passcodeData, passcode.endDate).then((res)=>{
                 console.log('res', res);
                 if(res._id) {
                     return {
@@ -115,13 +114,12 @@ export class PasscodeController {
             let passcodeData = {
                 createdBy       : passcode.createdBy,
                 startDate       : passcode.startDate,
-                endDate         : passcode.endDate,
                 lockId          : passcode.lockId,
                 keyboardPwdName : passcode.keyboardPwdName,
                 keyboardPwd     : passcode.keyboardPwd,
                 keyboardPwdId   : data.data.keyboardPwdId
             } 
-            return this.PasscodeService.create(passcodeData).then((res)=>{
+            return this.PasscodeService.create(passcodeData, passcode.endDate).then((res)=>{
                 console.log('res', res);
                 if(res._id) {
                     return {

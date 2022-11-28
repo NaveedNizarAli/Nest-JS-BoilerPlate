@@ -21,9 +21,14 @@ let PasscodeService = class PasscodeService {
         this.passcodeModel = passcodeModel;
         this.lockModel = lockModel;
     }
-    async create(passcodeData) {
-        console.log('passcodeData', passcodeData);
-        const newPasscode = new this.passcodeModel(Object.assign(Object.assign({}, passcodeData), { created: new Date().valueOf(), updated: new Date().valueOf() }));
+    async create(passcodeData, endDate) {
+        let newPasscode;
+        if (endDate) {
+            newPasscode = new this.passcodeModel(Object.assign(Object.assign({}, passcodeData), { created: new Date().valueOf(), endDate: endDate, updated: new Date().valueOf() }));
+        }
+        else {
+            newPasscode = new this.passcodeModel(Object.assign(Object.assign({}, passcodeData), { created: new Date().valueOf(), updated: new Date().valueOf() }));
+        }
         return newPasscode.save();
     }
 };
