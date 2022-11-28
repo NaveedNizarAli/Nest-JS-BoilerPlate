@@ -33,7 +33,8 @@ let PasscodeController = class PasscodeController {
         params.append('accessToken', access_token);
         params.append('lockId', passcode.lockId);
         params.append('startDate', passcode.startDate.toString());
-        params.append('endDate', passcode.endDate.toString());
+        if (passcode.endDate)
+            params.append('endDate', passcode.endDate.toString());
         params.append('keyboardPwdName', passcode.keyboardPwdName);
         params.append('keyboardPwdType', passcode.keyboardPwdType.toString());
         params.append('date', new Date().valueOf().toString());
