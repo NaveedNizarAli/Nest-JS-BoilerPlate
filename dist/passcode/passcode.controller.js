@@ -56,13 +56,14 @@ let PasscodeController = class PasscodeController {
             let passcodeData = {
                 createdBy: passcode.createdBy,
                 startDate: passcode.startDate,
-                endDate: passcode.endDate,
                 lockId: passcode.lockId,
                 keyboardPwdType: passcode.keyboardPwdType,
                 keyboardPwdName: passcode.keyboardPwdName,
                 keyboardPwd: data.data.keyboardPwd,
                 keyboardPwdId: data.data.keyboardPwdId
             };
+            if (passcode.endDate)
+                passcodeData['endDate'] = passcode.endDate;
             return this.PasscodeService.create(passcodeData).then((res) => {
                 console.log('res', res);
                 if (res._id) {
