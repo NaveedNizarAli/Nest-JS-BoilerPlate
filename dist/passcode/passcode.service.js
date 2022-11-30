@@ -31,6 +31,12 @@ let PasscodeService = class PasscodeService {
         }
         return newPasscode.save();
     }
+    async getall(createdBy) {
+        return await this.passcodeModel.find({
+            createdBy: createdBy,
+            delete: false
+        });
+    }
 };
 PasscodeService = __decorate([
     (0, common_1.Injectable)(),

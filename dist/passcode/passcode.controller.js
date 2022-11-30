@@ -144,6 +144,23 @@ let PasscodeController = class PasscodeController {
             return data;
         }
     }
+    async findAll(createdBy) {
+        let data = await this.PasscodeService.getall(createdBy);
+        if (data.length > 0) {
+            return {
+                success: true,
+                message: 'passcode successfully found',
+                data: data
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: 'unable to find passcode',
+                error: 'unable to find passcode',
+            };
+        }
+    }
 };
 __decorate([
     (0, common_1.Post)('create'),
@@ -159,6 +176,13 @@ __decorate([
     __metadata("design:paramtypes", [create_custompasscode_dto_1.CreateCustomPassCodeDTO]),
     __metadata("design:returntype", Promise)
 ], PasscodeController.prototype, "createrandom", null);
+__decorate([
+    (0, common_1.Get)('getbycreatedBy/:createdBy'),
+    __param(0, (0, common_1.Param)('createdBy')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], PasscodeController.prototype, "findAll", null);
 PasscodeController = __decorate([
     (0, common_1.Controller)('passcode'),
     __metadata("design:paramtypes", [passcode_service_1.PasscodeService, axios_1.HttpService])

@@ -145,5 +145,23 @@ export class PasscodeController {
 
     }
 
+    @Get('getbycreatedBy/:createdBy')
+    async findAll(@Param('createdBy') createdBy: string) {
+        let data = await this.PasscodeService.getall(createdBy);
+        if(data.length > 0){
+            return {
+              success : true,
+              message : 'passcode successfully found',
+              data : data
+            }
+        }
+        else{
+            return {
+                success : false,
+                message : 'unable to find passcode',
+                error   : 'unable to find passcode',
+            }
+        }
+    }
     
 }

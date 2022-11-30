@@ -8,4 +8,15 @@ export declare class PasscodeController {
     constructor(PasscodeService: PasscodeService, httpService: HttpService);
     create(passcode: CreatePassCodeDTO): Promise<any>;
     createrandom(passcode: CreateCustomPassCodeDTO): Promise<any>;
+    findAll(createdBy: string): Promise<{
+        success: boolean;
+        message: string;
+        data: any;
+        error?: undefined;
+    } | {
+        success: boolean;
+        message: string;
+        error: string;
+        data?: undefined;
+    }>;
 }

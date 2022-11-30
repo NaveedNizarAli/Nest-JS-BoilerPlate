@@ -24,5 +24,12 @@ export class PasscodeService {
         return newPasscode.save(); 
     }
 
+    async getall(createdBy: string) : Promise<any> {
+        return await this.passcodeModel.find({
+            createdBy : createdBy,
+            delete    : false
+        });
+    }
+
    
 }
