@@ -147,7 +147,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], FingerprintController.prototype, "create", null);
 __decorate([
-    (0, common_1.Get)('getbylockid/:createdBy'),
+    (0, common_1.Get)('getbycreatedBy/:createdBy'),
     __param(0, (0, common_1.Param)('createdBy')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

@@ -79,7 +79,7 @@ export class FingerprintController {
 
     }
 
-    @Get('getbylockid/:createdBy')
+    @Get('getbycreatedBy/:createdBy')
     async findAll(@Param('createdBy') createdBy: string) {
         let data = await this.fingerprintService.getall(createdBy);
         if(data.length > 0){
