@@ -92,15 +92,15 @@ let FingerprintController = class FingerprintController {
         if (data.length > 0) {
             return {
                 success: true,
-                message: 'bookings successfully found',
+                message: 'fingerprint successfully found',
                 data: data
             };
         }
         else {
             return {
                 success: false,
-                message: 'unable to find bookings',
-                error: 'unable to find bookings',
+                message: 'unable to find fingerprint',
+                error: 'unable to find fingerprint',
             };
         }
     }
