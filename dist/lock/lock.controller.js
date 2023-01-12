@@ -41,7 +41,7 @@ let LockController = class LockController {
             }
         };
         console.log('params', params);
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lock/initialize', params, config)).then(response => {
             if (response) {
                 return this.lockService.getByLockId(response.data.lockId).then((lockResponse) => {
                     console.log('response', lockResponse);
@@ -56,7 +56,7 @@ let LockController = class LockController {
         });
         console.log('data', data);
         if (data.success) {
-            let result = await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + data.lockId + '&date=' + new Date().valueOf())).then(response => {
+            let result = await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://euapi.ttlock.com/v3/lock/detail?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + data.lockId + '&date=' + new Date().valueOf())).then(response => {
                 console.log('response', response);
                 if (response && response.data.lockId) {
                     return this.lockService.create({ lockData: Object.assign({}, response.data), created: new Date().valueOf(), updated: new Date().valueOf(), createdBy: lock.createdBy, lockId: response.data.lockId, lockDataString: lock.lockData, homeId: lock.homeId }).then((res) => {
@@ -179,7 +179,7 @@ let LockController = class LockController {
         };
         let data;
         if (lock.records) {
-            data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lockRecord/upload', params, config)).then((response) => {
+            data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lockRecord/upload', params, config)).then((response) => {
                 console.log('response', response);
                 if (response.data && response.data.errcode === 0) {
                     return {
@@ -191,7 +191,7 @@ let LockController = class LockController {
             });
         }
         if ((data && data.success) || !lock.records) {
-            return await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://api.ttlock.com/v3/lockRecord/list?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + lock.lockId + '&date=' + new Date().valueOf() + '&pageNo=1&pageSize=100')).then(response => {
+            return await (0, rxjs_1.firstValueFrom)(this.httpService.get('https://euapi.ttlock.com/v3/lockRecord/list?clientId=' + enterpassAppIds_1.EnterPassConfig.clientId + '&accessToken=' + access_token + '&lockId=' + lock.lockId + '&date=' + new Date().valueOf() + '&pageNo=1&pageSize=100')).then(response => {
                 if (response.data && response.data.list) {
                     let index = 0;
                     for (const item of response.data.list) {
@@ -229,7 +229,7 @@ let LockController = class LockController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://api.ttlock.com/v3/lock/delete', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params, config)).then(response => {
             console.log('res', response);
             if (response) {
                 if (response.data.errcode === 0)

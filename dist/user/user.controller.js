@@ -51,7 +51,7 @@ let UserController = class UserController {
             }
         };
         console.log('params', params);
-        let data = this.httpService.post('https://api.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
+        let data = this.httpService.post('https://euapi.ttlock.com/v3/user/register', params, config).pipe((0, rxjs_1.map)(response => {
             console.log('response signup', response.data);
             if (response) {
                 if (!response.data.errcode) {
@@ -100,7 +100,7 @@ let UserController = class UserController {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 };
-                return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
+                return this.httpService.post('https://euapi.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
                     if (!response.data.errcode) {
                         if (response.data.access_token) {
                             console.log('response', response.data);
@@ -142,7 +142,7 @@ let UserController = class UserController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        return this.httpService.post('https://api.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
+        return this.httpService.post('https://euapi.ttlock.com/oauth2/token', params, config).pipe((0, rxjs_1.map)(response => {
             if (response) {
                 if (response.data.access_token) {
                     let user = {
@@ -208,11 +208,11 @@ let UserController = class UserController {
                     params2.append('accessToken', access_token);
                     params2.append('lockId', element.lockId);
                     params2.append('date', new Date().valueOf().toString());
-                    let deleteLockApi = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2, config)).then(response => {
+                    let deleteLockApi = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/lock/delete', params2, config)).then(response => {
                         console.log('response1', response);
                     });
                 }
-                let deleteUser = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params, config)).then(response => {
+                let deleteUser = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/user/delete', params, config)).then(response => {
                     console.log('response2', response);
                     return {
                         success: true,
@@ -223,7 +223,7 @@ let UserController = class UserController {
                 return deleteUser;
             }
             else {
-                let deleteUser = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params, config)).then(response => {
+                let deleteUser = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/user/delete', params, config)).then(response => {
                     console.log('response3', response);
                     return {
                         success: true,

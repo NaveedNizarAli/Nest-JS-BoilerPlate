@@ -32,7 +32,7 @@ export class FingerprintController {
         }
 
 
-        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/fingerprint/add', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/fingerprint/add', params , config)).then( response =>{
             console.log('response', response.data);
             if(response){
                 if(response.data.fingerprintId) return {success: true, error: '', message : 'fingerprint created succesfully', data: response.data.fingerprintId};
@@ -116,7 +116,7 @@ export class FingerprintController {
             }
         }
 
-        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/fingerprint/delete', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/fingerprint/delete', params , config)).then( response =>{
             console.log('response', response);
             if(response){
                 if(response.data.errcode === 0) return {success: true, error: '', message : 'fingerprint successfully deleted', data: response.data};

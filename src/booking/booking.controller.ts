@@ -46,11 +46,11 @@ export class BookingController {
         
                     let url : string;
                     if(index === 0){ 
-                        url = 'https://api.ttlock.com/v3/keyboardPwd/get'; 
+                        url = 'https://euapi.ttlock.com/v3/keyboardPwd/get'; 
                         console.log('params', index, params)
                     } 
                     else {
-                        url = 'https://api.ttlock.com/v3/keyboardPwd/add'; 
+                        url = 'https://euapi.ttlock.com/v3/keyboardPwd/add'; 
                         params.append('keyboardPwd', pwd.toString());
                         params.delete('keyboardPwdType');
                         console.log('params', index, params)

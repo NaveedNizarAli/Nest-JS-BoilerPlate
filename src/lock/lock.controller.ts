@@ -35,7 +35,7 @@ export class LockController {
 
         console.log('params', params);
 
-        let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/initialize', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lock/initialize', params , config)).then( response =>{
            if(response){
                 return this.lockService.getByLockId(response.data.lockId).then((lockResponse)=>{
                     console.log('response', lockResponse);
@@ -53,7 +53,7 @@ export class LockController {
         console.log('data', data);
 
         if(data.success){
-            let result = await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lock/detail?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+data.lockId +'&date='+ new Date().valueOf())).then( response =>{
+            let result = await firstValueFrom(this.httpService.get('https://euapi.ttlock.com/v3/lock/detail?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+data.lockId +'&date='+ new Date().valueOf())).then( response =>{
                 console.log('response', response);  
                 if(response && response.data.lockId) {
                         return this.lockService.create({lockData : {...response.data}, created: new Date().valueOf(), updated : new Date().valueOf(), createdBy : lock.createdBy, lockId: response.data.lockId, lockDataString : lock.lockData, homeId : lock.homeId}).then((res)=>{
@@ -234,7 +234,7 @@ export class LockController {
 
         let data;
         if(lock.records){
-            data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lockRecord/upload', params , config)).then((response)=>{
+            data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lockRecord/upload', params , config)).then((response)=>{
                 console.log('response', response);
                 if(response.data && response.data.errcode === 0 ) {
                     return {
@@ -247,7 +247,7 @@ export class LockController {
         }
 
         if((data && data.success) || !lock.records) {
-            return await firstValueFrom(this.httpService.get('https://api.ttlock.com/v3/lockRecord/list?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+lock.lockId +'&date='+ new Date().valueOf() + '&pageNo=1&pageSize=100')).then( response =>{
+            return await firstValueFrom(this.httpService.get('https://euapi.ttlock.com/v3/lockRecord/list?clientId='+EnterPassConfig.clientId+'&accessToken='+access_token+'&lockId='+lock.lockId +'&date='+ new Date().valueOf() + '&pageNo=1&pageSize=100')).then( response =>{
                 if(response.data && response.data.list){
                     let index = 0;
                     for (const item of response.data.list) {
@@ -295,7 +295,7 @@ export class LockController {
 
 
 
-        let data = await firstValueFrom(this.httpService.post('https://api.ttlock.com/v3/lock/delete', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params , config)).then( response =>{
             console.log('res', response);
             if(response){
                 if(response.data.errcode === 0) return {success: true, error: '', message : 'lock deleted', data: lock.lockId};
