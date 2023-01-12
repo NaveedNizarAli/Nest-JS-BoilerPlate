@@ -42,7 +42,7 @@ let FingerprintController = class FingerprintController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/fingerprint/add', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/fingerprint/add', params, config)).then(response => {
             console.log('response', response.data);
             if (response) {
                 if (response.data.fingerprintId)
@@ -117,7 +117,7 @@ let FingerprintController = class FingerprintController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/fingerprint/delete', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/fingerprint/delete', params, config)).then(response => {
             console.log('response', response);
             if (response) {
                 if (response.data.errcode === 0)

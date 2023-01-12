@@ -33,7 +33,7 @@ export class PasscodeController {
         }
 
 
-        let data = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/keyboardPwd/get', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/keyboardPwd/get', params , config)).then( response =>{
             console.log('response', response.data);
             if(response){
                 if(response.data.keyboardPwdId) return {success: true, error: '', message : 'passcode created succesfully', data: response.data};
@@ -101,7 +101,7 @@ export class PasscodeController {
         }
 
 
-        let data = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/keyboardPwd/add', params , config)).then( response =>{
+        let data = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/keyboardPwd/add', params , config)).then( response =>{
             console.log('response', response.data);
             if(response){
                 if(response.data.keyboardPwdId) return {success: true, error: '', message : 'custom passcode created succesfully', data: response.data};

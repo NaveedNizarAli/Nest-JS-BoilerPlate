@@ -245,14 +245,14 @@ export class UserController {
           params2.append('lockId', element.lockId);
           params2.append('date', new Date().valueOf().toString());
 
-          let deleteLockApi = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/lock/delete', params2 , config)).then( response =>{
+          let deleteLockApi = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/lock/delete', params2 , config)).then( response =>{
             console.log('response1', response)
           })
 
         }
 
 
-        let deleteUser = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+        let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
           console.log('response2', response);  
           return {
               success : true,
@@ -264,7 +264,7 @@ export class UserController {
         return deleteUser;
       }
       else {
-        let deleteUser = await firstValueFrom(this.httpService.post('https://eueuapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
+        let deleteUser = await firstValueFrom(this.httpService.post('https://euapi.ttlock.com/v3/user/delete', params , config)).then( response =>{
           console.log('response3', response);  
           return {
               success : true,

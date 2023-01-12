@@ -43,7 +43,7 @@ let PasscodeController = class PasscodeController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/keyboardPwd/get', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/keyboardPwd/get', params, config)).then(response => {
             console.log('response', response.data);
             if (response) {
                 if (response.data.keyboardPwdId)
@@ -102,7 +102,7 @@ let PasscodeController = class PasscodeController {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         };
-        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://eueuapi.ttlock.com/v3/keyboardPwd/add', params, config)).then(response => {
+        let data = await (0, rxjs_1.firstValueFrom)(this.httpService.post('https://euapi.ttlock.com/v3/keyboardPwd/add', params, config)).then(response => {
             console.log('response', response.data);
             if (response) {
                 if (response.data.keyboardPwdId)
